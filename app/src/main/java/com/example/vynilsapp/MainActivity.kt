@@ -21,10 +21,11 @@ class MainActivity : AppCompatActivity() {
         }
         // Set button click listeners
         val buttonListAlbumCatalog = findViewById<AppCompatButton>(R.id.btn_see_album_catalog)
-        buttonListAlbumCatalog.setOnClickListener {
-            // Start ListAlbumCatalogActivity
-            Log.i("MainActivity", "Button clicked: List Album Catalog")
-            startActivity(Intent(this, ListAlbumCatalogActivity::class.java))
-        }
+        buttonListAlbumCatalog.setOnClickListener { navigateToAlbumCatalogListActivity() }
+    }
+
+    private fun navigateToAlbumCatalogListActivity() {
+        // Start ListAlbumCatalogActivity
+        startActivity(Intent(this, AlbumCatalogListActivity::class.java))
     }
 }
