@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">VynilsApp</string>
+    <string name="app_name">VYNILS</string>
+    <string name="welcome_message">Bienvenido a Vynils</string>
+    <string name="see_album_catalog">Ver Catálogo de Álbumes</string>
 </resources>
