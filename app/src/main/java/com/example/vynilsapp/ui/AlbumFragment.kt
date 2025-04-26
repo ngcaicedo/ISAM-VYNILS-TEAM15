@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vynilsapp.R
 import com.example.vynilsapp.databinding.FragmentAlbumBinding
@@ -26,7 +26,7 @@ class AlbumFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAlbumBinding.inflate(inflater, container, false)
         val view = binding.root
         viewModelAdapter = AlbumsAdapter()
@@ -38,8 +38,14 @@ class AlbumFragment : Fragment() {
         
         // Configurar RecyclerView
         recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = GridLayoutManager(context, 2) // 2 columnas
         recyclerView.adapter = viewModelAdapter
+        
+        // Configurar botón de creación de álbum
+        binding.btnCreateAlbum.setOnClickListener {
+            // Navegar al fragmento de creación de álbum
+            findNavController().navigate(R.id.action_albumFragment_to_createAlbumFragment)
+        }
         
         // Inicializar ViewModel
         val activity = requireActivity()
