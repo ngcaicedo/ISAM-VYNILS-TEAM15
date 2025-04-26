@@ -2,6 +2,7 @@ package com.example.vynilsapp.repositories
 import android.app.Application
 import com.android.volley.VolleyError
 import com.example.vynilsapp.models.Album
+import com.example.vynilsapp.models.CreateAlbumRequest
 import com.example.vynilsapp.network.NetworkServiceAdapter
 
 class AlbumRepository(val application: Application) {
@@ -13,5 +14,9 @@ class AlbumRepository(val application: Application) {
         },
             onError
         )
+    }
+
+    fun createAlbum(albumRequest: CreateAlbumRequest, onComplete: (Album) -> Unit, onError: (VolleyError) -> Unit) {
+        NetworkServiceAdapter.getInstance(application).createAlbum(albumRequest, onComplete, onError)
     }
 }

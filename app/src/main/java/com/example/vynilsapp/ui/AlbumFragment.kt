@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vynilsapp.R
@@ -42,10 +43,8 @@ class AlbumFragment : Fragment() {
         
         // Configurar botón de creación de álbum
         binding.btnCreateAlbum.setOnClickListener {
-            // Aquí se puede navegar a un nuevo fragmento para crear álbum
-            // Por ahora, sólo mostraremos un mensaje
-            Toast.makeText(context, "Crear nuevo álbum", Toast.LENGTH_SHORT).show()
-            // TODO: Implementar navegación a pantalla de creación de álbum
+            // Navegar al fragmento de creación de álbum
+            findNavController().navigate(R.id.action_albumFragment_to_createAlbumFragment)
         }
         
         // Inicializar ViewModel
@@ -78,12 +77,5 @@ class AlbumFragment : Fragment() {
             Toast.makeText(activity, "Error de red", Toast.LENGTH_LONG).show()
             viewModel.onNetworkErrorShown()
         }
-    }
-    
-    // Método para navegar a la pantalla de creación de álbum
-    private fun navigateToCreateAlbum() {
-        // TODO: Implementar cuando se cree el fragment de creación de álbum
-        // val action = AlbumFragmentDirections.actionAlbumFragmentToCreateAlbumFragment()
-        // findNavController().navigate(action)
     }
 } 
