@@ -9,42 +9,50 @@
             type="com.example.vynilsapp.models.Album" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_margin="@dimen/activity_card_left_margin"
-        app:cardCornerRadius="22dp"
-        tools:cardBackgroundColor="@color/gray">
+        android:layout_margin="8dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@android:color/darker_gray">
 
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/albumCover"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                android:contentDescription="@{album.name}"/>
+                android:contentDescription="@{album.name}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/albumNameBackground"/>
 
-            <FrameLayout
+            <View
+                android:id="@+id/albumNameBackground"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_gravity="bottom"
-                android:background="@color/black">
+                android:layout_height="40dp"
+                android:background="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-                <TextView
-                    android:id="@+id/albumName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:layout_gravity="center"
-                    android:textColor="@color/white"
-                    android:text="@{album.name}"/>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/albumName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{album.name}"
+                app:layout_constraintTop_toTopOf="@id/albumNameBackground"
+                app:layout_constraintBottom_toBottomOf="@id/albumNameBackground"
+                app:layout_constraintStart_toStartOf="@id/albumNameBackground"
+                app:layout_constraintEnd_toEndOf="@id/albumNameBackground"/>
 
-            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </FrameLayout>
-
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

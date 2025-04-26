@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/titleAppVynils"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@+id/titleAppVynils"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/welcomeView"
         android:layout_height="150dp"
         android:layout_width="match_parent"
@@ -35,10 +35,12 @@
         android:layout_marginRight="@dimen/activity_card_left_margin"
         android:text="@string/welcome_message"
         app:cardCornerRadius="20dp"
+        app:cardElevation="4dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@android:color/darker_gray"
         app:layout_constraintTop_toBottomOf="@+id/titleAppVynils"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:cardBackgroundColor="@color/gray">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -46,24 +48,26 @@
             android:orientation="vertical"
             android:gravity="center">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/welcomeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/welcome_message"
                 android:textSize="@dimen/activity_title_size"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_see_album_catalog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/see_album_catalog"
+        android:textAllCaps="false"
+        app:cornerRadius="20dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
