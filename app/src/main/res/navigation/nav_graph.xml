@@ -11,6 +11,16 @@
         android:label="@string/welcome_message"
         tools:layout="@layout/fragment_welcome">
         <action
+            android:id="@+id/action_welcomeFragment_to_guestmenuFragment"
+            app:destination="@id/guestmenuFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/guestmenuFragment"
+        android:name="com.example.vynilsapp.ui.GuestMenuFragment"
+        android:label="@string/guest_menu_title"
+        tools:layout="@layout/fragment_guest_menu">
+        <action
             android:id="@+id/action_welcomeFragment_to_albumFragment"
             app:destination="@id/albumFragment" />
     </fragment>

@@ -7,27 +7,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.vynilsapp.R
-import com.example.vynilsapp.databinding.FragmentWelcomeBinding
+import com.example.vynilsapp.databinding.FragmentGuestMenuBinding
 
-class WelcomeFragment : Fragment() {
-    private var _binding: FragmentWelcomeBinding? = null
+class GuestMenuFragment : Fragment() {
+    private var _binding: FragmentGuestMenuBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWelcomeBinding.inflate(inflater, container, false)
+        _binding = FragmentGuestMenuBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
-        // Configuración de botones para navegar a menú
 
-        binding.btnSeeGuestMenu.setOnClickListener {
-            findNavController().navigate(R.id.action_welcomeFragment_to_guestmenuFragment)
+        binding.btnSeeAlbumCatalog.setOnClickListener {
+            findNavController().navigate(R.id.action_welcomeFragment_to_albumFragment)
         }
     }
 
@@ -35,4 +33,5 @@ class WelcomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-} 
+
+}
