@@ -27,7 +27,13 @@ class WelcomeFragment : Fragment() {
         // Configuración de botones para navegar a menú
 
         binding.btnSeeGuestMenu.setOnClickListener {
-            findNavController().navigate(R.id.action_welcomeFragment_to_guestmenuFragment)
+            val action = WelcomeFragmentDirections.actionWelcomeFragmentToGuestmenuFragment("guest")
+            findNavController().navigate(action)
+        }
+
+        binding.btnSeeCollectorMenu.setOnClickListener {
+            val action = WelcomeFragmentDirections.actionWelcomeFragmentToGuestmenuFragment("collector")
+            findNavController().navigate(action)
         }
     }
 

@@ -20,8 +20,11 @@
         android:name="com.example.vynilsapp.ui.GuestMenuFragment"
         android:label="@string/guest_menu_title"
         tools:layout="@layout/fragment_guest_menu">
+        <argument
+            android:name="typeUser"
+            app:argType="string" />
         <action
-            android:id="@+id/action_welcomeFragment_to_albumFragment"
+            android:id="@+id/action_guestMenuFragment_to_albumFragment"
             app:destination="@id/albumFragment" />
     </fragment>
 
@@ -30,6 +33,9 @@
         android:name="com.example.vynilsapp.ui.AlbumFragment"
         android:label="@string/album_catalog_list"
         tools:layout="@layout/fragment_album">
+        <argument
+            android:name="typeUser"
+            app:argType="string" />
         <action
             android:id="@+id/action_albumFragment_to_createAlbumFragment"
             app:destination="@id/createAlbumFragment" />

@@ -1,6 +1,7 @@
 package com.example.vynilsapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,9 +24,12 @@ class GuestMenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val args = GuestMenuFragmentArgs.fromBundle(requireArguments())
+        val typeUser = args.typeUser
 
         binding.btnSeeAlbumCatalog.setOnClickListener {
-            findNavController().navigate(R.id.action_welcomeFragment_to_albumFragment)
+            val action = GuestMenuFragmentDirections.actionGuestMenuFragmentToAlbumFragment(typeUser)
+            findNavController().navigate(action)
         }
     }
 
