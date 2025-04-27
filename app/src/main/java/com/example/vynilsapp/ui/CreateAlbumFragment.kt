@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +17,21 @@ import com.example.vynilsapp.viewmodels.CreateAlbumViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+
+enum class GENRE(val value: String) {
+    CLASSICAL("Classical"),
+    SALSA("Salsa"),
+    ROCK("Rock"),
+    FOLK("Folk")
+}
+
+enum class RECORDLABEL(val value: String) {
+    SONY("Sony Music"),
+    EMI("EMI"),
+    FUENTES("Discos Fuentes"),
+    ELEKTRA("Elektra"),
+    FANIA("Fania Records")
+}
 
 class CreateAlbumFragment : Fragment() {
     private var _binding: FragmentCreateAlbumBinding? = null
@@ -33,12 +50,25 @@ class CreateAlbumFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        viewModel = ViewModelProvider(this, CreateAlbumViewModel.Factory(requireActivity().application))
-            .get(CreateAlbumViewModel::class.java)
+        viewModel = ViewModelProvider(this, CreateAlbumViewModel.Factory(requireActivity().application))[CreateAlbumViewModel::class.java]
         
         setupDatePicker()
+        setupGenreDropdown()
+        setupRecordLabelDropdown()
         setupSaveButton()
         observeViewModel()
+    }
+    
+    private fun setupGenreDropdown() {
+        val genres = GENRE.entries.map { it.value }.toTypedArray()
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, genres)
+        (binding.tilGenre.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+    }
+
+    private fun setupRecordLabelDropdown() {
+        val recordLabels = RECORDLABEL.entries.map { it.value }.toTypedArray()
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, recordLabels)
+        (binding.tilRecordLabel.editText as? AutoCompleteTextView)?.setAdapter(adapter)
     }
     
     private fun setupDatePicker() {
@@ -81,8 +111,8 @@ class CreateAlbumFragment : Fragment() {
         val cover = binding.etCover.text.toString().trim()
         val releaseDate = binding.etReleaseDate.text.toString().trim()
         val description = binding.etDescription.text.toString().trim()
-        val genre = binding.etGenre.text.toString().trim()
-        val recordLabel = binding.etRecordLabel.text.toString().trim()
+        val genre = (binding.tilGenre.editText as? AutoCompleteTextView)?.text.toString().trim()
+        val recordLabel = (binding.tilRecordLabel.editText as? AutoCompleteTextView)?.text.toString().trim()
         
         return name.isNotEmpty() && cover.isNotEmpty() && releaseDate.isNotEmpty() &&
                 description.isNotEmpty() && genre.isNotEmpty() && recordLabel.isNotEmpty()
@@ -97,8 +127,8 @@ class CreateAlbumFragment : Fragment() {
             cover = binding.etCover.text.toString().trim(),
             releaseDate = binding.etReleaseDate.text.toString().trim(),
             description = binding.etDescription.text.toString().trim(),
-            genre = binding.etGenre.text.toString().trim(),
-            recordLabel = binding.etRecordLabel.text.toString().trim()
+            genre = (binding.tilGenre.editText as? AutoCompleteTextView)?.text.toString().trim(),
+            recordLabel = (binding.tilRecordLabel.editText as? AutoCompleteTextView)?.text.toString().trim()
         )
     }
     
@@ -111,6 +141,7 @@ class CreateAlbumFragment : Fragment() {
         viewModel.albumCreated.observe(viewLifecycleOwner) { album ->
             if (album != null) {
                 Toast.makeText(context, getString(R.string.album_created_success), Toast.LENGTH_SHORT).show()
+                AlbumFragment.shouldRefreshData = true
                 // Navegar de vuelta a la lista de álbumes
                 findNavController().popBackStack()
             }
