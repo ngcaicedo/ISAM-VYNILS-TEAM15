@@ -35,7 +35,7 @@ Este proyecto es una aplicación Android desarrollada en Kotlin. A continuación
    ![image](https://github.com/user-attachments/assets/26548490-d4d8-4828-8a52-c8ab587763e1)
 * Cree el dispositivo virtual para la ejecución del aplicativo. Para esto, diríjase a la opción de `Device Manager` y de click en el ícono `+` o en `Add a new device...` para proseguir con la opción `Create Virtual Device`
    1. ![image](https://github.com/user-attachments/assets/75bf8dab-7c80-4601-b4fd-149bac263f61)
-   2. La aplicación esta diseñada para se ejecutada en dispositivos Android con versión Lollipop 5.0 en adelante, por lo cual se recomienda seleccionar la opción `Show obsolete devices profiles` y buscar el dispositivo `Nexus 6` como mínimo, cualquier dispositivo con versiones superiores a la Lollipop 5.0 es compatible. Al finalizar de click en `Next`
+   2. La aplicación está diseñada para ser ejecutada en dispositivos Android con versión Lollipop 5.0 en adelante, por lo cual se recomienda seleccionar la opción `Show obsolete devices profiles` y buscar el dispositivo `Nexus 6` como mínimo, cualquier dispositivo con versiones superiores a la Lollipop 5.0 es compatible. Al finalizar de click en `Next`
 ![image](https://github.com/user-attachments/assets/3554722f-7898-48ec-aeb6-d5082297549e)
    3. Configure el dispositivo con el nombre deseado, asegurando que la versión API seleccionada sea la `ÀPI 21 "Lollipop"; Android 5.0`. Seleccione la imagen de sistema y posteriormente haga click en `Finish`
       ![image](https://github.com/user-attachments/assets/ab0c50cf-f04f-4685-aa68-5adbafc595eb)
