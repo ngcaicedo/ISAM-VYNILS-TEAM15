@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.vynilsapp.R
 import com.example.vynilsapp.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment() {
