@@ -37,11 +37,11 @@ Este proyecto es una aplicación Android desarrollada en Kotlin. A continuación
    1. ![image](https://github.com/user-attachments/assets/75bf8dab-7c80-4601-b4fd-149bac263f61)
    2. La aplicación está diseñada para ser ejecutada en dispositivos Android con versión Lollipop 5.0 en adelante, por lo cual se recomienda seleccionar la opción `Show obsolete devices profiles` y buscar el dispositivo `Nexus 6` como mínimo, cualquier dispositivo con versiones superiores a la Lollipop 5.0 es compatible. Al finalizar de click en `Next`
 ![image](https://github.com/user-attachments/assets/3554722f-7898-48ec-aeb6-d5082297549e)
-   3. Configure el dispositivo con el nombre deseado, asegurando que la versión API seleccionada sea la `ÀPI 21 "Lollipop"; Android 5.0`. Seleccione la imagen de sistema y posteriormente haga click en `Finish`
+   3. Configure el dispositivo con el nombre deseado, asegurando que la versión API seleccionada sea la `API 21 "Lollipop"; Android 5.0`. Seleccione la imagen de sistema y posteriormente haga click en `Finish`
       ![image](https://github.com/user-attachments/assets/ab0c50cf-f04f-4685-aa68-5adbafc595eb)
    4. Una vez configurado el dispositivo virtual, estará disponible en la barra superior de ejecución y en el `Device Manager`
       ![image](https://github.com/user-attachments/assets/0f4d8c08-9509-4bff-9fe4-314b279a8561)
-* Seleccione el boton de ejecución (boton con forma de flecha a la derecha en color verde) para que el aplicativo se compile y se instale en el dispositivo virtual seleccionado
+* Seleccione el botón de ejecución (botón con forma de flecha a la derecha en color verde) para que el aplicativo se compile y se instale en el dispositivo virtual seleccionado
   ![image](https://github.com/user-attachments/assets/e2276e2d-5789-4e9a-b054-7293a59ca191)
    1. El proceso inicia la compilación e instalación en el emulador. Por favor espere a que el proceso termine. Sabra que el proceso termino una vez el aplicativo sea lanzado en el emulador de la parte derecha
       ![image](https://github.com/user-attachments/assets/934de4bb-f11a-47fd-8e47-6b7354381b47)
