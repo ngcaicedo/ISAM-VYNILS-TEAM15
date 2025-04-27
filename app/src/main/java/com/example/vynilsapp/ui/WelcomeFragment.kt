@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.vynilsapp.R
 import com.example.vynilsapp.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment() {
@@ -24,9 +23,16 @@ class WelcomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        // Configurar el botón para navegar al catálogo de álbumes
-        binding.btnSeeAlbumCatalog.setOnClickListener {
-            findNavController().navigate(R.id.action_welcomeFragment_to_albumFragment)
+        // Configuración de botones para navegar a menú
+
+        binding.btnSeeGuestMenu.setOnClickListener {
+            val action = WelcomeFragmentDirections.actionWelcomeFragmentToGuestmenuFragment("guest")
+            findNavController().navigate(action)
+        }
+
+        binding.btnSeeCollectorMenu.setOnClickListener {
+            val action = WelcomeFragmentDirections.actionWelcomeFragmentToGuestmenuFragment("collector")
+            findNavController().navigate(action)
         }
     }
 

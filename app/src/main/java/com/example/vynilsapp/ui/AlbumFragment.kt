@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vynilsapp.R
 import com.example.vynilsapp.databinding.FragmentAlbumBinding
-import com.example.vynilsapp.models.Album
 import com.example.vynilsapp.ui.adapters.AlbumsAdapter
 import com.example.vynilsapp.viewmodels.AlbumViewModel
 
@@ -40,12 +39,22 @@ class AlbumFragment : Fragment() {
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = GridLayoutManager(context, 2) // 2 columnas
         recyclerView.adapter = viewModelAdapter
-        
-        // Configurar botón de creación de álbum
-        binding.btnCreateAlbum.setOnClickListener {
-            // Navegar al fragmento de creación de álbum
-            findNavController().navigate(R.id.action_albumFragment_to_createAlbumFragment)
+
+        // Validar tipo de usuario para mostrar botón de creación de álbum
+        val args = AlbumFragmentArgs.fromBundle(requireArguments())
+        val typeUser = args.typeUser
+
+        if (typeUser != "collector") {
+            binding.btnCreateAlbum.visibility = View.GONE
+        } else {
+            binding.btnCreateAlbum.visibility = View.VISIBLE
+            // Configurar botón de creación de álbum
+            binding.btnCreateAlbum.setOnClickListener {
+                // Navegar al fragmento de creación de álbum
+                findNavController().navigate(R.id.action_albumFragment_to_createAlbumFragment)
+            }
         }
+
         
         // Inicializar ViewModel
         val activity = requireActivity()
