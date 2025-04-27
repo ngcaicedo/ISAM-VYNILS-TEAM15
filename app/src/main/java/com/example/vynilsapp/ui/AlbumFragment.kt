@@ -22,6 +22,11 @@ class AlbumFragment : Fragment() {
     private lateinit var viewModel: AlbumViewModel
     private var viewModelAdapter: AlbumsAdapter? = null
 
+    companion object {
+        // Bandera para indicar si es necesario refrescar los datos
+        var shouldRefreshData = false
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,6 +78,20 @@ class AlbumFragment : Fragment() {
         
         viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
             if (isNetworkError) onNetworkError()
+        }
+    }
+    
+    // Modificar método onResume para refrescar solo cuando sea necesario
+    override fun onResume() {
+        super.onResume()
+        // Solo refrescar si la bandera está activada
+        if (shouldRefreshData) {
+            // Mostrar el indicador de carga
+            binding.progressCircular.visibility = View.VISIBLE
+            // Refrescar datos desde la API
+            viewModel.refreshDataFromNetwork()
+            // Restablecer la bandera
+            shouldRefreshData = false
         }
     }
     

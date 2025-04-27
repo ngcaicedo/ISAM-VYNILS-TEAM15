@@ -69,7 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="date"
-                    android:focusable="false"
+                    android:focusable="true"
                     android:clickable="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,14 +97,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:hint="@string/album_genre"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 app:layout_constraintTop_toBottomOf="@id/tilDescription">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etGenre"
+                <AutoCompleteTextView
+                    android:id="@+id/actvGenre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:labelFor="@id/actvGenre"
+                    android:inputType="none"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -113,14 +114,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:hint="@string/album_record_label"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 app:layout_constraintTop_toBottomOf="@id/tilGenre">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etRecordLabel"
+                <AutoCompleteTextView
+                    android:id="@+id/actvRecordLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:labelFor="@+id/actvRecordLabel"
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
