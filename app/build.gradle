@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -30,6 +31,14 @@ android {
     kotlinOptions {
         jvmTarget = '11'
     }
+
+    viewBinding {
+        enabled = true
+    }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -39,6 +48,22 @@ dependencies {
     implementation libs.material
     implementation libs.androidx.activity
     implementation libs.androidx.constraintlayout
+    
+    // Navigation
+    implementation libs.androidx.navigation.fragment
+    implementation libs.androidx.navigation.ui
+    implementation libs.androidx.navigation.dynamic.features
+    
+    // Dependencies for API calls
+    implementation libs.retrofit
+    implementation libs.volley
+    implementation libs.gson
+    implementation libs.retrofit.converter.gson
+    implementation libs.retrofit.converter.scalars
+    
+    // Picasso
+    implementation libs.picasso
+    
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
