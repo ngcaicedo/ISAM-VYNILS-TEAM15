@@ -49,10 +49,27 @@ Este proyecto es una aplicación Android desarrollada en Kotlin. A continuación
 Si ha llegado a este punto, felicidades, ha logrado desplegar el aplicativo Android Vynils del Team15 de manera local satisfactoriamente. Ahora, puede proseguir con probar el aplicativo como tenga planeado 
 
 
+## Ejecución de pruebas con Espresso
+Para ejecutar las pruebas de Espresso, asegúrese de que el emulador esté en ejecución y se encuentre con las animaciones desactivadas, para esto puedo ejecutar los siguientes comandos:
 
+```
+adb shell settings put global window_animation_scale 0.0
+adb shell settings put global transition_animation_scale 0.0
+adb shell settings put global animator_duration_scale 0.0
+```
 
+Una vez aplique dicha sugerencia, siga estos pasos:
 
-      
+1. Dirijase al path `app/src/androidTest/java/com/example/vynilsapp/`
+2. Haga click derecho sobre el archivo `TestVynilsE2EHU01` y luego en Run
+3. Espere a que el proceso de ejecución de pruebas termine. Podrá ver los resultados en la parte inferior de Android Studio
+4. Si desea ejecutar las pruebas de `TestVynilsE2EHU02`, repita el paso 2, pero esta vez haga click derecho sobre el archivo `TestVynilsE2EHU02` y luego en Run
+5. Espere a que el proceso de ejecución de pruebas termine. Podrá ver los resultados en la parte inferior de Android Studio
+
+Nota: Se pueden presentar errores al ejecutar las pruebas de `TestVynilsE2EHU02` debido a los tiempos de respuesta de la API (La cual se encuentra desplegada en una arquitectura de capa gratuita AWS), para solventar esto, se recomienda aumentar el tiempo de espera en el `Thread.sleep` ubicado en la línea 94.
+
+## Ubicación del APK
+El APK generado se encuentra en la ruta raiz del proyecto en la carpeta `APK`, el cual puede descargar e instalar en su dispositivo Android. Para instalar el APK, asegúrese de habilitar la opción de `Instalación de aplicaciones de fuentes desconocidas` en la configuración de su dispositivo. La aplicación es compatible con dispositivos Android 5.0 (Lollipop) y versiones superiores.
  
 
   
