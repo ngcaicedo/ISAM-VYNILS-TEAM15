@@ -9,6 +9,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.vynilsapp.models.Album
+import com.example.vynilsapp.models.Performer
 import com.example.vynilsapp.models.CreateAlbumRequest
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -45,6 +46,43 @@ class NetworkServiceAdapter constructor(context: Context) {
                 }
             },
             { onError(it) }))
+    }
+
+    fun getPerformers(onComplete: (resp: List<Performer>) -> Unit, onError: (error: VolleyError) -> Unit) {
+        val allPerformers = mutableListOf<Performer>()
+        var errorCount = 0
+
+        fun handleRequestCompletion() {
+            if (errorCount < 2) {
+                onComplete(allPerformers)
+            } else {
+                onError(VolleyError("Failed to load musicians and bands"))
+            }
+        }
+
+        fun makePerformerRequest(endpoint: String) {
+            requestQueue.add(getRequest(endpoint,
+                { response ->
+                    try {
+                        val performers = gson.fromJson<List<Performer>>(
+                            response,
+                            object : TypeToken<List<Performer>>() {}.type
+                        )
+                        allPerformers.addAll(performers)
+                    } catch (e: Exception) {
+                        errorCount++
+                    }
+                    handleRequestCompletion()
+                },
+                { error ->
+                    errorCount++
+                    handleRequestCompletion()
+                }
+            ))
+        }
+
+        makePerformerRequest("musicians")
+        makePerformerRequest("bands")
     }
 
     fun createAlbum(albumRequest: CreateAlbumRequest, onComplete: (Album) -> Unit, onError: (VolleyError) -> Unit) {

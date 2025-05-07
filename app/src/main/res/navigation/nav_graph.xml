@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_guestMenuFragment_to_albumFragment"
             app:destination="@id/albumFragment" />
+        <action
+            android:id="@+id/action_guestMenuFragment_to_performerFragment"
+            app:destination="@id/performerFragment" />
     </fragment>
 
     <fragment
@@ -39,6 +42,16 @@
         <action
             android:id="@+id/action_albumFragment_to_createAlbumFragment"
             app:destination="@id/createAlbumFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/performerFragment"
+        android:name="com.example.vynilsapp.ui.PerformerFragment"
+        android:label="@string/performer_catalog_list"
+        tools:layout="@layout/fragment_performer">
+        <argument
+            android:name="typeUser"
+            app:argType="string" />
     </fragment>
 
     <fragment

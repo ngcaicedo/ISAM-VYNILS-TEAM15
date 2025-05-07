@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="performer"
+            type="com.example.vynilsapp.models.Performer" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@android:color/darker_gray">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/performerImage"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="@{performer.name}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/performerNameBackground"/>
+
+            <View
+                android:id="@+id/performerNameBackground"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/performerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{performer.name}"
+                app:layout_constraintTop_toTopOf="@id/performerNameBackground"
+                app:layout_constraintBottom_toBottomOf="@id/performerNameBackground"
+                app:layout_constraintStart_toStartOf="@id/performerNameBackground"
+                app:layout_constraintEnd_toEndOf="@id/performerNameBackground"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>
