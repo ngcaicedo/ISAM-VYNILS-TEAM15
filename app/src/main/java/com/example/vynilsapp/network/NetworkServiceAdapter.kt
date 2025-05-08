@@ -1,6 +1,7 @@
 package com.example.vynilsapp.network
 
 import android.content.Context
+import android.util.Log
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -54,6 +55,32 @@ class NetworkServiceAdapter constructor(context: Context) {
                     val type = object : TypeToken<List<Album>>() {}.type
                     val albums = gson.fromJson<List<Album>>(response, type)
                     onComplete(albums)
+                } catch (e: Exception) {
+                    onError(VolleyError(e.message))
+                }
+            },
+            { onError(it) }))
+    }
+
+    fun getPerformer(id: String, typePerformer: String, onComplete: (Performer) -> Unit, onError: (VolleyError) -> Unit) {
+        val endpoint = when (typePerformer) {
+            "Band" -> "bands/$id"
+            "Musician" -> "musicians/$id"
+            else -> {
+                onError(VolleyError("Invalid type: $typePerformer"))
+                Log.i("PerformerFragment", "Error PerformerType: ${typePerformer}")
+                return
+            }
+        }
+        Log.i("PerformerFragment", "NetworkServiceAdapter - typePerformer: ${typePerformer} | performerId: ${id}")
+
+
+        requestQueue.add(getRequest(endpoint,
+            { response ->
+                try {
+                    val performer = gson.fromJson(response, Performer::class.java)
+                    onComplete(performer)
+                    Log.i("PerformerFragment", "NetworkServiceAdapter - Performer: ${performer}")
                 } catch (e: Exception) {
                     onError(VolleyError(e.message))
                 }

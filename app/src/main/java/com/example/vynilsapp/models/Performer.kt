@@ -11,6 +11,8 @@ data class Performer (
     val image: String,
     @SerializedName("description")
     val description: String,
-    @SerializedName("type")
-    val type: String
+    @SerializedName("creationDate")
+    val creationDate: String,
+    @SerializedName("birthDate")
+    val birthDate: String
 )
