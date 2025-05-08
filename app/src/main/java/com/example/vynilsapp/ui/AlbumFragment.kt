@@ -1,6 +1,7 @@
 package com.example.vynilsapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,6 +61,12 @@ class AlbumFragment : Fragment() {
             }
         }
 
+        // Click on cover and navigate to detail
+        viewModelAdapter!!.onClick = { album ->
+            Log.i("AlbumFragment", "Album clicked: ${album.name}")
+           val action = AlbumFragmentDirections.actionAlbumFragmentToAlbumDetailFragment(album.albumId)
+           findNavController().navigate(action)
+        }
         
         // Inicializar ViewModel
         val activity = requireActivity()
