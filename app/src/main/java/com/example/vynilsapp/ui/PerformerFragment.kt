@@ -1,12 +1,14 @@
 package com.example.vynilsapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vynilsapp.R
@@ -43,6 +45,14 @@ class PerformerFragment : Fragment() {
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = GridLayoutManager(context, 2) // 2 columnas
         recyclerView.adapter = viewModelAdapter
+
+        // Click on cover and navigate to detail
+        viewModelAdapter!!.onClick = { performer ->
+            val typePerformer = if (performer.birthDate == null) "Band" as String else "Musician" as String
+            Log.i("PerformerFragment", "PerformerFragment - typePerformer: ${typePerformer} | performerId: ${performer.performerId}")
+            val action = PerformerFragmentDirections.actionPerformerFragmentToPerformerDetailFragment(performer.performerId, typePerformer)
+            findNavController().navigate(action)
+        }
 
         // Inicializar ViewModel
         val activity = requireActivity()

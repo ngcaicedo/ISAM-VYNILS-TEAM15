@@ -1,6 +1,8 @@
 package com.example.vynilsapp.repositories
 import android.app.Application
+import android.util.Log
 import com.android.volley.VolleyError
+import com.example.vynilsapp.models.Album
 import com.example.vynilsapp.models.Performer
 import com.example.vynilsapp.network.NetworkServiceAdapter
 
@@ -13,5 +15,10 @@ class PerformerRepository(val application: Application) {
         },
             onError
         )
+    }
+
+    fun getPerformer(id: String, typePerformer: String, onComplete: (Performer) -> Unit, onError: (VolleyError) -> Unit) {
+        Log.i("PerformerFragment", "PerformerRepository - typePerformer: ${typePerformer} | performerId: ${id}")
+        NetworkServiceAdapter.getInstance(application).getPerformer(id, typePerformer, onComplete, onError)
     }
 }

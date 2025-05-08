@@ -29,10 +29,15 @@
     <!-- Strings de artistas -->
     <string name="todos_los_performers">Todos los artistas</string>
     <string name="performer_catalog_list">Todos los artistas</string>
+    <string name="performer_name">NOMBRE</string>
+    <string name="performer_description">DESCRIPCIÓN</string>
+    <string name="performer_birth_date">FECHA NACIMIENTO</string>
+    <string name="performer_creation_date">FECHA CREACIÓN</string>
 
     <!-- Strings del detalle del album -->
     <string name="album_release">Lanzamiento</string>
     <string name="back_button">Volver</string>
+
 
 
 

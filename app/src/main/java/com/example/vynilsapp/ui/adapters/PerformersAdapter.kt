@@ -18,6 +18,8 @@ class PerformersAdapter : RecyclerView.Adapter<PerformersAdapter.PerformerViewHo
             notifyDataSetChanged()
         }
 
+    var onClick: ((Performer) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PerformerViewHolder {
         val withDataBinding: PerformerItemBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
@@ -35,6 +37,9 @@ class PerformersAdapter : RecyclerView.Adapter<PerformersAdapter.PerformerViewHo
         // Cargar la imagen con Picasso si no se carga automáticamente
         if (performer.image.isNotEmpty()) {
             Picasso.get().load(performer.image).into(holder.viewDataBinding.performerImage)
+        }
+        holder.itemView.setOnClickListener {
+            onClick?.invoke(performer)
         }
     }
 
