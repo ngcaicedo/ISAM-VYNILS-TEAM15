@@ -30,6 +30,9 @@
     <string name="todos_los_performers">Todos los artistas</string>
     <string name="performer_catalog_list">Todos los artistas</string>
 
+    <!-- Strings del detalle del album -->
+    <string name="album_release">Lanzamiento</string>
+    <string name="back_button">Volver</string>
 
 
 

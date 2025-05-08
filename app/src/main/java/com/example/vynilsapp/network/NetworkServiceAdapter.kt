@@ -34,7 +34,20 @@ class NetworkServiceAdapter constructor(context: Context) {
 
     private val gson = Gson()
 
-    fun getAlbums(onComplete: (resp: List<Album>) -> Unit, onError: (error: VolleyError) -> Unit) {
+    fun getAlbum(id: String, onComplete: (Album) -> Unit, onError: (VolleyError) -> Unit) {
+        requestQueue.add(getRequest("albums/$id",
+            { response ->
+                try {
+                    val album = gson.fromJson(response, Album::class.java)
+                    onComplete(album)
+                } catch (e: Exception) {
+                    onError(VolleyError(e.message))
+                }
+            },
+            { onError(it) }))
+    }
+
+    fun getAlbums(onComplete: (List<Album>) -> Unit, onError: (VolleyError) -> Unit) {
         requestQueue.add(getRequest("albums",
             { response ->
                 try {
