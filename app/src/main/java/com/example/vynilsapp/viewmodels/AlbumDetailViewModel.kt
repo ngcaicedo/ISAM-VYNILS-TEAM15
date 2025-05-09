@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 class AlbumDetailViewModel(application: Application, albumId: Int, private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) : AndroidViewModel(application) {
     private val albumsRepository = AlbumRepository(application)
     private val _albums = MutableLiveData<Album>()
-    val albums: LiveData<Album> get() = _albums
 
     private val _albumDetail = MutableLiveData<Album>()
     val albumDetail: LiveData<Album> get() = _albumDetail
@@ -32,7 +31,7 @@ class AlbumDetailViewModel(application: Application, albumId: Int, private val i
     fun refreshDataFromNetwork() {
         try {
             viewModelScope.launch(ioDispatcher){
-                var data = albumsRepository.getAlbum(id)
+                val data = albumsRepository.getAlbum(id)
                 Log.d("AlbumDetailViewModel", "Data: $data")
                 _albumDetail.postValue(data)
                 _eventNetworkError.postValue(false)

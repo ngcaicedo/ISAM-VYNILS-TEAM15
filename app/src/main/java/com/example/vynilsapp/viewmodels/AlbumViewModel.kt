@@ -33,7 +33,7 @@ class AlbumViewModel(application: Application, private val ioDispatcher: Corouti
     fun refreshDataFromNetwork() {
         try {
             viewModelScope.launch(ioDispatcher){
-                var data = albumsRepository.refreshData()
+                val data = albumsRepository.refreshData()
                 _albums.postValue(data)
                 _eventNetworkError.postValue(false)
                 _isNetworkErrorShown.postValue(false)
