@@ -114,7 +114,7 @@ class NetworkServiceAdapter constructor(context: Context) {
                     }
                     handleRequestCompletion()
                 },
-                { error ->
+                {_ ->
                     errorCount++
                     handleRequestCompletion()
                 }

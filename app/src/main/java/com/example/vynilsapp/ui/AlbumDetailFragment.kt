@@ -32,8 +32,7 @@ class AlbumDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val activity = requireActivity()
-        viewModel = ViewModelProvider(this, AlbumDetailViewModel.Factory(activity.application))
-            .get(AlbumDetailViewModel::class.java)
+        viewModel = ViewModelProvider(this, AlbumDetailViewModel.Factory(activity.application))[AlbumDetailViewModel::class.java]
 
         viewModel.albumDetail.observe(viewLifecycleOwner) { albumDetail ->
             albumDetail?.let {
@@ -53,7 +52,7 @@ class AlbumDetailFragment : Fragment() {
             if (isNetworkError) onNetworkError()
         }
 
-        val albumId = arguments?.get("albumId")?.toString() ?: return
+        val albumId = arguments?.getString("albumId") ?: return
         viewModel.getAlbumDetail(albumId)
     }
 

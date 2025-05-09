@@ -48,7 +48,7 @@ class PerformerFragment : Fragment() {
 
         // Click on cover and navigate to detail
         viewModelAdapter!!.onClick = { performer ->
-            val typePerformer = if (performer.birthDate == null) "Band" as String else "Musician" as String
+            val typePerformer = if (performer.birthDate == null) "Band" else "Musician"
             Log.i("PerformerFragment", "PerformerFragment - typePerformer: ${typePerformer} | performerId: ${performer.performerId}")
             val action = PerformerFragmentDirections.actionPerformerFragmentToPerformerDetailFragment(performer.performerId, typePerformer)
             findNavController().navigate(action)
@@ -58,8 +58,7 @@ class PerformerFragment : Fragment() {
         val activity = requireActivity()
         activity.actionBar?.title = getString(R.string.app_name)
 
-        viewModel = ViewModelProvider(this, PerformerViewModel.Factory(activity.application))
-            .get(PerformerViewModel::class.java)
+        viewModel = ViewModelProvider(this, PerformerViewModel.Factory(activity.application))[PerformerViewModel::class.java]
 
         // Observar cambios en el ViewModel
         viewModel.performers.observe(viewLifecycleOwner) { performers ->

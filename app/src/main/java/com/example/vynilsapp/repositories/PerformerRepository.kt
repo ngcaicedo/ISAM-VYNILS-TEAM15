@@ -2,7 +2,6 @@ package com.example.vynilsapp.repositories
 import android.app.Application
 import android.util.Log
 import com.android.volley.VolleyError
-import com.example.vynilsapp.models.Album
 import com.example.vynilsapp.models.Performer
 import com.example.vynilsapp.network.NetworkServiceAdapter
 

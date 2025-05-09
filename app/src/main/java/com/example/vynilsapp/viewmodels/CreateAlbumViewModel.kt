@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.android.volley.VolleyError
 import com.example.vynilsapp.models.Album
 import com.example.vynilsapp.models.CreateAlbumRequest
 import com.example.vynilsapp.repositories.AlbumRepository

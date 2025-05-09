@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.example.vynilsapp.R
 import com.example.vynilsapp.databinding.FragmentPerformerDetailBinding
 import com.example.vynilsapp.viewmodels.PerformerDetailViewModel
 import com.squareup.picasso.Picasso
@@ -35,8 +33,7 @@ class PerformerDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val activity = requireActivity()
-        viewModel = ViewModelProvider(this, PerformerDetailViewModel.Factory(activity.application))
-            .get(PerformerDetailViewModel::class.java)
+        viewModel = ViewModelProvider(this, PerformerDetailViewModel.Factory(activity.application))[PerformerDetailViewModel::class.java]
 
         // Validar tipo de performer para mostrar fecha de nacimiento o fecha de creación
         val args = PerformerDetailFragmentArgs.fromBundle(requireArguments())
@@ -73,7 +70,7 @@ class PerformerDetailFragment : Fragment() {
         }
 
         val performerId = arguments?.getInt("performerId")?.toString() ?: return
-        val typePerformer = arguments?.get("typePerformer")?.toString() ?: return
+        val typePerformer = arguments?.getString("typePerformer") ?: return
         Log.i("PerformerFragment", "PerformerDetailFragment - typePerformer: ${typePerformer} | performerId: ${performerId}")
         viewModel.getPerformerDetail(performerId, typePerformer)
     }
