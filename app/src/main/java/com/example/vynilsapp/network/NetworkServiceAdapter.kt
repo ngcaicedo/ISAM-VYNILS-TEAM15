@@ -14,7 +14,11 @@ import com.example.vynilsapp.models.Performer
 import com.example.vynilsapp.models.CreateAlbumRequest
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import org.json.JSONArray
 import org.json.JSONObject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object {
@@ -35,31 +39,49 @@ class NetworkServiceAdapter constructor(context: Context) {
 
     private val gson = Gson()
 
-    fun getAlbum(id: String, onComplete: (Album) -> Unit, onError: (VolleyError) -> Unit) {
+    suspend fun getAlbum(id: Int) = suspendCoroutine<Album> { continuation ->
         requestQueue.add(getRequest("albums/$id",
             { response ->
-                try {
-                    val album = gson.fromJson(response, Album::class.java)
-                    onComplete(album)
-                } catch (e: Exception) {
-                    onError(VolleyError(e.message))
-                }
+                val item = JSONObject(response)
+                val album = Album(
+                    albumId = id,
+                    name = item.getString("name"),
+                    cover = item.getString("cover"),
+                    releaseDate = item.getString("releaseDate"),
+                    description = item.getString("description"),
+                    genre = item.getString("genre"),
+                    recordLabel = item.getString("recordLabel")
+                )
+                continuation.resume(album)
             },
-            { onError(it) }))
+            {
+                continuation.resumeWithException(it)
+            }))
     }
 
-    fun getAlbums(onComplete: (List<Album>) -> Unit, onError: (VolleyError) -> Unit) {
+    suspend fun getAlbums() = suspendCoroutine<List<Album>> { continuation ->
         requestQueue.add(getRequest("albums",
             { response ->
-                try {
-                    val type = object : TypeToken<List<Album>>() {}.type
-                    val albums = gson.fromJson<List<Album>>(response, type)
-                    onComplete(albums)
-                } catch (e: Exception) {
-                    onError(VolleyError(e.message))
+                val resp = JSONArray(response)
+                val list = mutableListOf<Album>()
+                for (i in 0 until resp.length()) {
+                    val item = resp.getJSONObject(i)
+                    val album = Album(
+                        albumId = item.getInt("id"),
+                        name = item.getString("name"),
+                        cover = item.getString("cover"),
+                        releaseDate = item.getString("releaseDate"),
+                        description = item.getString("description"),
+                        genre = item.getString("genre"),
+                        recordLabel = item.getString("recordLabel")
+                    )
+                    list.add(i, album)
                 }
+                continuation.resume(list)
             },
-            { onError(it) }))
+            {
+                continuation.resumeWithException(it)
+            }))
     }
 
     fun getPerformer(id: String, typePerformer: String, onComplete: (Performer) -> Unit, onError: (VolleyError) -> Unit) {

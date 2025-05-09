@@ -1,6 +1,7 @@
 package com.example.vynilsapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +33,9 @@ class AlbumDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val activity = requireActivity()
-        viewModel = ViewModelProvider(this, AlbumDetailViewModel.Factory(activity.application))[AlbumDetailViewModel::class.java]
+        val albumId = arguments?.getInt("albumId") ?: return
+        Log.i("AlbumDetailFragment", "AlbumId: $albumId")
+        viewModel = ViewModelProvider(this, AlbumDetailViewModel.Factory(activity.application, albumId))[AlbumDetailViewModel::class.java]
 
         viewModel.albumDetail.observe(viewLifecycleOwner) { albumDetail ->
             albumDetail?.let {
@@ -52,8 +55,6 @@ class AlbumDetailFragment : Fragment() {
             if (isNetworkError) onNetworkError()
         }
 
-        val albumId = arguments?.getString("albumId") ?: return
-        viewModel.getAlbumDetail(albumId)
     }
 
     override fun onResume() {
