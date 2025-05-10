@@ -33,13 +33,13 @@ class PerformerDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val activity = requireActivity()
-        viewModel = ViewModelProvider(this, PerformerDetailViewModel.Factory(activity.application))[PerformerDetailViewModel::class.java]
+        val performerId = arguments?.getInt("performerId") ?: return
+        val typePerformer = arguments?.getString("typePerformer") ?: return
+        Log.i("PerformerDetailFragment", "PerformerId: $performerId")
+        Log.i("PerformerDetailFragment", "TypePerformer: $typePerformer")
+        viewModel = ViewModelProvider(this, PerformerDetailViewModel.Factory(activity.application, performerId, typePerformer))[PerformerDetailViewModel::class.java]
 
-        // Validar tipo de performer para mostrar fecha de nacimiento o fecha de creación
-        val args = PerformerDetailFragmentArgs.fromBundle(requireArguments())
-        val type = args.typePerformer
-
-        if (type == "Band") {
+        if (typePerformer == "Band") {
             binding.fechaNacimientoPerformerDetailLabel.visibility = View.GONE
             binding.fechaNacimientoPerformerDetail.visibility = View.GONE
         } else {
@@ -68,11 +68,6 @@ class PerformerDetailFragment : Fragment() {
         viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
             if (isNetworkError) onNetworkError()
         }
-
-        val performerId = arguments?.getInt("performerId")?.toString() ?: return
-        val typePerformer = arguments?.getString("typePerformer") ?: return
-        Log.i("PerformerFragment", "PerformerDetailFragment - typePerformer: ${typePerformer} | performerId: ${performerId}")
-        viewModel.getPerformerDetail(performerId, typePerformer)
     }
 
     override fun onResume() {

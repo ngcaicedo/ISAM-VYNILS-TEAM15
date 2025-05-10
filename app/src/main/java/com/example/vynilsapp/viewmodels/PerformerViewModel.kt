@@ -1,11 +1,15 @@
 package com.example.vynilsapp.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.vynilsapp.models.Performer
 import com.example.vynilsapp.repositories.PerformerRepository
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class PerformerViewModel(application: Application) :  AndroidViewModel(application) {
+class PerformerViewModel(application: Application, private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) :  AndroidViewModel(application) {
     private val performersRepository = PerformerRepository(application)
     private val _performers = MutableLiveData<List<Performer>>()
 
@@ -27,13 +31,17 @@ class PerformerViewModel(application: Application) :  AndroidViewModel(applicati
     }
 
     fun refreshDataFromNetwork() {
-        performersRepository.refreshData({
-            _performers.postValue(it)
-            _eventNetworkError.value = false
-            _isNetworkErrorShown.value = false
-        },{
+        try {
+            viewModelScope.launch(ioDispatcher) {
+                val data = performersRepository.refreshData()
+                _performers.postValue(data)
+                _eventNetworkError.postValue(false)
+                _isNetworkErrorShown.postValue(false)
+            }
+        } catch (e: Exception) {
+            Log.d("PerformerViewModel", "Error: ${e.message}")
             _eventNetworkError.value = true
-        })
+        }
     }
 
     fun onNetworkErrorShown() {
