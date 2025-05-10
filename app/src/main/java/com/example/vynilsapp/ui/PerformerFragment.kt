@@ -12,16 +12,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vynilsapp.R
-import com.example.vynilsapp.databinding.FragmentAlbumBinding
-import com.example.vynilsapp.ui.adapters.AlbumsAdapter
-import com.example.vynilsapp.viewmodels.AlbumViewModel
+import com.example.vynilsapp.databinding.FragmentPerformerBinding
+import com.example.vynilsapp.ui.adapters.PerformersAdapter
+import com.example.vynilsapp.viewmodels.PerformerViewModel
 
-class AlbumFragment : Fragment() {
-    private var _binding: FragmentAlbumBinding? = null
+class PerformerFragment : Fragment() {
+    private var _binding: FragmentPerformerBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewModel: AlbumViewModel
-    private var viewModelAdapter: AlbumsAdapter? = null
+    private lateinit var viewModel: PerformerViewModel
+    private var viewModelAdapter: PerformersAdapter? = null
 
     companion object {
         // Bandera para indicar si es necesario refrescar los datos
@@ -32,62 +32,48 @@ class AlbumFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAlbumBinding.inflate(inflater, container, false)
+        _binding = FragmentPerformerBinding.inflate(inflater, container, false)
         val view = binding.root
-        viewModelAdapter = AlbumsAdapter()
+        viewModelAdapter = PerformersAdapter()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         // Configurar RecyclerView
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = GridLayoutManager(context, 2) // 2 columnas
         recyclerView.adapter = viewModelAdapter
 
-        // Validar tipo de usuario para mostrar botón de creación de álbum
-        val args = AlbumFragmentArgs.fromBundle(requireArguments())
-        val typeUser = args.typeUser
-
-        if (typeUser != "collector") {
-            binding.btnCreateAlbum.visibility = View.GONE
-        } else {
-            binding.btnCreateAlbum.visibility = View.VISIBLE
-            // Configurar botón de creación de álbum
-            binding.btnCreateAlbum.setOnClickListener {
-                // Navegar al fragmento de creación de álbum
-                findNavController().navigate(R.id.action_albumFragment_to_createAlbumFragment)
-            }
-        }
-
         // Click on cover and navigate to detail
-        viewModelAdapter!!.onClick = { album ->
-            Log.i("AlbumFragment", "Album clicked: ${album.name}")
-           val action = AlbumFragmentDirections.actionAlbumFragmentToAlbumDetailFragment(album.albumId)
-           findNavController().navigate(action)
+        viewModelAdapter!!.onClick = { performer ->
+            val typePerformer = if (performer.birthDate == null) "Band" as String else "Musician" as String
+            Log.i("PerformerFragment", "PerformerFragment - typePerformer: ${typePerformer} | performerId: ${performer.performerId}")
+            val action = PerformerFragmentDirections.actionPerformerFragmentToPerformerDetailFragment(performer.performerId, typePerformer)
+            findNavController().navigate(action)
         }
-        
+
         // Inicializar ViewModel
         val activity = requireActivity()
         activity.actionBar?.title = getString(R.string.app_name)
-        
-        viewModel = ViewModelProvider(this, AlbumViewModel.Factory(activity.application))
-            .get(AlbumViewModel::class.java)
-        
+
+        viewModel = ViewModelProvider(this, PerformerViewModel.Factory(activity.application))
+            .get(PerformerViewModel::class.java)
+
         // Observar cambios en el ViewModel
-        viewModel.albums.observe(viewLifecycleOwner) { albums ->
-            albums?.let {
-                viewModelAdapter!!.albums = it
+        viewModel.performers.observe(viewLifecycleOwner) { performers ->
+            performers?.let {
+                viewModelAdapter!!.performers = it
                 binding.progressCircular.visibility = View.GONE
             }
         }
-        
+
         viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
             if (isNetworkError) onNetworkError()
         }
     }
-    
+
     // Modificar método onResume para refrescar solo cuando sea necesario
     override fun onResume() {
         super.onResume()
@@ -101,7 +87,7 @@ class AlbumFragment : Fragment() {
             shouldRefreshData = false
         }
     }
-    
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -113,4 +99,4 @@ class AlbumFragment : Fragment() {
             viewModel.onNetworkErrorShown()
         }
     }
-} 
+}
