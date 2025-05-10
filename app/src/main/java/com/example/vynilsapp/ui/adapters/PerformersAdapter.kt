@@ -12,11 +12,31 @@ import com.squareup.picasso.Picasso
 
 class PerformersAdapter : RecyclerView.Adapter<PerformersAdapter.PerformerViewHolder>(){
 
-    var performers :List<Performer> = emptyList()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
+    class PerformersDiffCallback(
+        private val oldList: List<Performer>,
+        private val newList: List<Performer>
+    ) : androidx.recyclerview.widget.DiffUtil.Callback(){
+
+        override fun getOldListSize(): Int = oldList.size
+
+        override fun getNewListSize(): Int = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].performerId == newList[newItemPosition].performerId
         }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition]
+        }
+    }
+
+    var performers: List<Performer> = emptyList()
+        set(value) {
+        val diffCallback = PerformersDiffCallback(field, value)
+        val diffResult = androidx.recyclerview.widget.DiffUtil.calculateDiff(diffCallback)
+        field = value
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     var onClick: ((Performer) -> Unit)? = null
 
