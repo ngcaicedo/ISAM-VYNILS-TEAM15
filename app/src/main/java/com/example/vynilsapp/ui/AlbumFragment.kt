@@ -71,9 +71,8 @@ class AlbumFragment : Fragment() {
         // Inicializar ViewModel
         val activity = requireActivity()
         activity.actionBar?.title = getString(R.string.app_name)
-        
-        viewModel = ViewModelProvider(this, AlbumViewModel.Factory(activity.application))
-            .get(AlbumViewModel::class.java)
+
+        viewModel = ViewModelProvider(this, AlbumViewModel.Factory(activity.application))[AlbumViewModel::class.java]
         
         // Observar cambios en el ViewModel
         viewModel.albums.observe(viewLifecycleOwner) { albums ->

@@ -1,7 +1,6 @@
 package com.example.vynilsapp.network
 
 import android.content.Context
-import android.util.Log
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -13,13 +12,16 @@ import com.example.vynilsapp.models.Album
 import com.example.vynilsapp.models.Performer
 import com.example.vynilsapp.models.CreateAlbumRequest
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import org.json.JSONArray
 import org.json.JSONObject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
-class NetworkServiceAdapter constructor(context: Context) {
+class NetworkServiceAdapter (context: Context) {
     companion object {
         const val BASE_URL = "http://3.136.119.70:3000/"
-        var instance: NetworkServiceAdapter? = null
+        private var instance: NetworkServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
                 instance ?: NetworkServiceAdapter(context).also {
@@ -35,94 +37,140 @@ class NetworkServiceAdapter constructor(context: Context) {
 
     private val gson = Gson()
 
-    fun getAlbum(id: String, onComplete: (Album) -> Unit, onError: (VolleyError) -> Unit) {
-        requestQueue.add(getRequest("albums/$id",
-            { response ->
-                try {
-                    val album = gson.fromJson(response, Album::class.java)
-                    onComplete(album)
-                } catch (e: Exception) {
-                    onError(VolleyError(e.message))
-                }
-            },
-            { onError(it) }))
+    suspend fun getAlbum(id: Int) = suspendCoroutine { continuation ->
+        requestQueue.add(
+            getRequest(
+                "albums/$id",
+                { response ->
+                    val item = JSONObject(response)
+                    val album = Album(
+                        albumId = id,
+                        name = item.getString("name"),
+                        cover = item.getString("cover"),
+                        releaseDate = item.getString("releaseDate"),
+                        description = item.getString("description"),
+                        genre = item.getString("genre"),
+                        recordLabel = item.getString("recordLabel")
+                    )
+                    continuation.resume(album)
+                },
+                {
+                    continuation.resumeWithException(it)
+                })
+        )
     }
 
-    fun getAlbums(onComplete: (List<Album>) -> Unit, onError: (VolleyError) -> Unit) {
-        requestQueue.add(getRequest("albums",
-            { response ->
-                try {
-                    val type = object : TypeToken<List<Album>>() {}.type
-                    val albums = gson.fromJson<List<Album>>(response, type)
-                    onComplete(albums)
-                } catch (e: Exception) {
-                    onError(VolleyError(e.message))
-                }
-            },
-            { onError(it) }))
+    suspend fun getAlbums() = suspendCoroutine<List<Album>> { continuation ->
+        requestQueue.add(
+            getRequest(
+                "albums",
+                { response ->
+                    val resp = JSONArray(response)
+                    val list = mutableListOf<Album>()
+                    for (i in 0 until resp.length()) {
+                        val item = resp.getJSONObject(i)
+                        val album = Album(
+                            albumId = item.getInt("id"),
+                            name = item.getString("name"),
+                            cover = item.getString("cover"),
+                            releaseDate = item.getString("releaseDate"),
+                            description = item.getString("description"),
+                            genre = item.getString("genre"),
+                            recordLabel = item.getString("recordLabel")
+                        )
+                        list.add(i, album)
+                    }
+                    continuation.resume(list)
+                },
+                {
+                    continuation.resumeWithException(it)
+                })
+        )
     }
 
-    fun getPerformer(id: String, typePerformer: String, onComplete: (Performer) -> Unit, onError: (VolleyError) -> Unit) {
-        val endpoint = when (typePerformer) {
-            "Band" -> "bands/$id"
-            "Musician" -> "musicians/$id"
-            else -> {
-                onError(VolleyError("Invalid type: $typePerformer"))
-                Log.i("PerformerFragment", "Error PerformerType: ${typePerformer}")
-                return
-            }
-        }
-        Log.i("PerformerFragment", "NetworkServiceAdapter - typePerformer: ${typePerformer} | performerId: ${id}")
-
-
-        requestQueue.add(getRequest(endpoint,
-            { response ->
-                try {
-                    val performer = gson.fromJson(response, Performer::class.java)
-                    onComplete(performer)
-                    Log.i("PerformerFragment", "NetworkServiceAdapter - Performer: ${performer}")
-                } catch (e: Exception) {
-                    onError(VolleyError(e.message))
-                }
-            },
-            { onError(it) }))
-    }
-
-    fun getPerformers(onComplete: (resp: List<Performer>) -> Unit, onError: (error: VolleyError) -> Unit) {
-        val allPerformers = mutableListOf<Performer>()
-        var errorCount = 0
-
-        fun handleRequestCompletion() {
-            if (errorCount < 2) {
-                onComplete(allPerformers)
+    suspend fun getPerformer(id: Int, typePerformer: String) = suspendCoroutine { continuation ->
+            val endpoint = if (typePerformer == "Band") {
+                "bands/$id"
             } else {
-                onError(VolleyError("Failed to load musicians and bands"))
+                "musicians/$id"
             }
-        }
-
-        fun makePerformerRequest(endpoint: String) {
             requestQueue.add(getRequest(endpoint,
                 { response ->
-                    try {
-                        val performers = gson.fromJson<List<Performer>>(
-                            response,
-                            object : TypeToken<List<Performer>>() {}.type
-                        )
-                        allPerformers.addAll(performers)
-                    } catch (e: Exception) {
-                        errorCount++
-                    }
-                    handleRequestCompletion()
+                    val item = JSONObject(response)
+                    val performer = Performer(
+                        performerId = id,
+                        name = item.getString("name"),
+                        description = item.getString("description"),
+                        creationDate = if (typePerformer == "Band") item.optString("creationDate", null) else null,
+                        birthDate = if (typePerformer != "Band") item.optString("birthDate", null) else null,
+                        image = item.getString("image")
+                    )
+                    continuation.resume(performer)
                 },
-                { error ->
-                    errorCount++
-                    handleRequestCompletion()
+                {
+                    continuation.resumeWithException(it)
+                }))
+        }
+
+    suspend fun getPerformers() = suspendCoroutine<List<Performer>> { continuation ->
+        val list = mutableListOf<Performer>()
+        var pendingRequests = 2
+        var hasResumed = false
+
+        fun handleCompletion() {
+            if (pendingRequests == 0 && !hasResumed) {
+                hasResumed = true
+                continuation.resume(list)
+            }
+        }
+
+        fun handleError(error: Throwable) {
+            if (!hasResumed) {
+                hasResumed = true
+                continuation.resumeWithException(error)
+            }
+        }
+
+        fun makeRequestAndProcess(endpoint: String, isBand: Boolean) {
+            requestQueue.add(getRequest(
+                endpoint,
+                { response ->
+                    processResponse(response, isBand, list, ::handleError)
+                    pendingRequests--
+                    handleCompletion()
+                },
+                {
+                    pendingRequests--
+                    handleError(it)
                 }
             ))
         }
 
-        makePerformerRequest("musicians")
-        makePerformerRequest("bands")
+        makeRequestAndProcess("musicians", isBand = false)
+        makeRequestAndProcess("bands", isBand = true)
+    }
+
+    private fun processResponse(response: String, isBand: Boolean, list: MutableList<Performer>, onError: (Throwable) -> Unit) {
+        try {
+            val resp = JSONArray(response)
+            for (i in 0 until resp.length()) {
+                val item = resp.getJSONObject(i)
+                list.add(parsePerformer(item, isBand))
+            }
+        } catch (e: Exception) {
+            onError(e)
+        }
+    }
+
+    private fun parsePerformer(item: JSONObject, isBand: Boolean): Performer {
+        return Performer(
+            performerId = item.getInt("id"),
+            name = item.getString("name"),
+            description = item.getString("description"),
+            creationDate = if (isBand) item.optString("creationDate", null) else null,
+            birthDate = if (!isBand) item.optString("birthDate", null) else null,
+            image = item.getString("image")
+        )
     }
 
     fun createAlbum(albumRequest: CreateAlbumRequest, onComplete: (Album) -> Unit, onError: (VolleyError) -> Unit) {

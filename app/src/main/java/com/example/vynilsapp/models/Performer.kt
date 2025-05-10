@@ -12,7 +12,7 @@ data class Performer (
     @SerializedName("description")
     val description: String,
     @SerializedName("creationDate")
-    val creationDate: String,
+    val creationDate: String? = null,
     @SerializedName("birthDate")
-    val birthDate: String
+    val birthDate: String? = null
 )
