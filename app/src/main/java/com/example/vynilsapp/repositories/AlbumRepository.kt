@@ -1,8 +1,10 @@
 package com.example.vynilsapp.repositories
 import android.app.Application
+import android.util.Log
 import com.android.volley.VolleyError
 import com.example.vynilsapp.models.Album
 import com.example.vynilsapp.models.CreateAlbumRequest
+import com.example.vynilsapp.network.CacheManager
 import com.example.vynilsapp.network.NetworkServiceAdapter
 
 class AlbumRepository(val application: Application) {
@@ -12,7 +14,17 @@ class AlbumRepository(val application: Application) {
     }
 
     suspend fun getAlbum(id: Int): Album {
-        return NetworkServiceAdapter.getInstance(application).getAlbum(id)
+        val potentialResp = CacheManager.getInstance(application.applicationContext).getAlbumDetails(id)
+        return if(potentialResp.albumId == 0){
+            Log.d("Cache decision", "get from network")
+            val comments = NetworkServiceAdapter.getInstance(application).getAlbum(id)
+            CacheManager.getInstance(application.applicationContext).addAlbumDetails(id, comments)
+            comments
+        }
+        else{
+            Log.d("Cache decision", "return elements from cache")
+            potentialResp
+        }
     }
 
     fun createAlbum(
