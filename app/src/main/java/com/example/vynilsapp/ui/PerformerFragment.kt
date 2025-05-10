@@ -49,7 +49,7 @@ class PerformerFragment : Fragment() {
         // Click on cover and navigate to detail
         viewModelAdapter!!.onClick = { performer ->
             val typePerformer = if (performer.birthDate == null) "Band" else "Musician"
-            Log.i("PerformerFragment", "PerformerFragment - typePerformer: ${typePerformer} | performerId: ${performer.performerId}")
+            Log.i("PerformerFragment", "PerformerFragment - typePerformer: $typePerformer | performerId: ${performer.performerId}")
             val action = PerformerFragmentDirections.actionPerformerFragmentToPerformerDetailFragment(performer.performerId, typePerformer)
             findNavController().navigate(action)
         }

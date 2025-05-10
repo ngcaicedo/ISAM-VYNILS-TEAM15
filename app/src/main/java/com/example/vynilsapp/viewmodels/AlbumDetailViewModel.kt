@@ -11,15 +11,14 @@ import kotlinx.coroutines.launch
 
 class AlbumDetailViewModel(application: Application, albumId: Int, private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) : AndroidViewModel(application) {
     private val albumsRepository = AlbumRepository(application)
-    private val _albums = MutableLiveData<Album>()
 
     private val _albumDetail = MutableLiveData<Album>()
     val albumDetail: LiveData<Album> get() = _albumDetail
 
-    private val _eventNetworkError = MutableLiveData<Boolean>(false)
+    private val _eventNetworkError = MutableLiveData(false)
     val eventNetworkError: LiveData<Boolean> get() = _eventNetworkError
 
-    private val _isNetworkErrorShown = MutableLiveData<Boolean>(false)
+    private val _isNetworkErrorShown = MutableLiveData(false)
     val isNetworkErrorShown: LiveData<Boolean> get() = _isNetworkErrorShown
 
     val id:Int = albumId
@@ -48,7 +47,7 @@ class AlbumDetailViewModel(application: Application, albumId: Int, private val i
         _isNetworkErrorShown.value = true
     }
 
-    class Factory(val app: Application, val albumId: Int) : ViewModelProvider.Factory {
+    class Factory(val app: Application, private val albumId: Int) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(AlbumDetailViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")

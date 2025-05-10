@@ -11,23 +11,22 @@ import kotlinx.coroutines.launch
 
 class PerformerDetailViewModel(application: Application, performerId: Int, typePerformer: String, private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) :  AndroidViewModel(application) {
     private val performersRepository = PerformerRepository(application)
-    private val _performers = MutableLiveData<Performer>()
 
     private val _performerDetail = MutableLiveData<Performer>()
     val performerDetail: LiveData<Performer> get() = _performerDetail
 
-    private var _eventNetworkError = MutableLiveData<Boolean>(false)
+    private var _eventNetworkError = MutableLiveData(false)
 
     val eventNetworkError: LiveData<Boolean>
         get() = _eventNetworkError
 
-    private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
+    private var _isNetworkErrorShown = MutableLiveData(false)
 
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
 
     val id:Int = performerId
-    val type:String = typePerformer
+    private val type:String = typePerformer
 
     init {
         refreshDataFromNetwork()
@@ -52,7 +51,7 @@ class PerformerDetailViewModel(application: Application, performerId: Int, typeP
         _isNetworkErrorShown.value = true
     }
 
-    class Factory(val app: Application, val performerId: Int, val typePerformer: String) : ViewModelProvider.Factory {
+    class Factory(val app: Application, private val performerId: Int, private val typePerformer: String) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(PerformerDetailViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")

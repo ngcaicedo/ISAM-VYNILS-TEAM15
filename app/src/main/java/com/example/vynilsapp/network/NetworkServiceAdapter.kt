@@ -18,10 +18,10 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class NetworkServiceAdapter constructor(context: Context) {
+class NetworkServiceAdapter (context: Context) {
     companion object {
         const val BASE_URL = "http://3.136.119.70:3000/"
-        var instance: NetworkServiceAdapter? = null
+        private var instance: NetworkServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
                 instance ?: NetworkServiceAdapter(context).also {
@@ -37,7 +37,7 @@ class NetworkServiceAdapter constructor(context: Context) {
 
     private val gson = Gson()
 
-    suspend fun getAlbum(id: Int) = suspendCoroutine<Album> { continuation ->
+    suspend fun getAlbum(id: Int) = suspendCoroutine { continuation ->
         requestQueue.add(
             getRequest(
                 "albums/$id",
@@ -88,7 +88,7 @@ class NetworkServiceAdapter constructor(context: Context) {
         )
     }
 
-    suspend fun getPerformer(id: Int, typePerformer: String) = suspendCoroutine<Performer> { continuation ->
+    suspend fun getPerformer(id: Int, typePerformer: String) = suspendCoroutine { continuation ->
             val endpoint = if (typePerformer == "Band") {
                 "bands/$id"
             } else {
