@@ -49,6 +49,12 @@ public class TestVynilsE2EHU07 {
         ViewInteraction albumsCatalogBtn = onView(allOf(withId(R.id.btn_see_album_catalog), withText("Ver Catálogo de Álbumes"), isDisplayed()));
         albumsCatalogBtn.perform(click());
 
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         String[] expectedAlbums = {"Buscando América", "Poeta del pueblo", "A Night at the Opera", "A Day at the Races"};
 
         for (String albumName : expectedAlbums) {
@@ -60,6 +66,12 @@ public class TestVynilsE2EHU07 {
 
         ViewInteraction createAlbumBtn = onView(allOf(withId(R.id.btnCreateAlbum), withText("CREAR ALBUM"), isDisplayed()));
         createAlbumBtn.perform(click());
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         onView(withId(R.id.etName)).check(matches(isDisplayed()));
         onView(withId(R.id.etCover)).check(matches(isDisplayed()));
@@ -100,6 +112,12 @@ public class TestVynilsE2EHU07 {
 
         ViewInteraction albumsCatalogBtn = onView(allOf(withId(R.id.btn_see_album_catalog), withText("Ver Catálogo de Álbumes"), isDisplayed()));
         albumsCatalogBtn.perform(click());
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         onView(allOf(withText("Reflections"), isDisplayed())).check(matches(withText("Reflections")));
     }

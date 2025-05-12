@@ -48,6 +48,12 @@ public class TestVynilsE2EHU01 {
 
         onView(withId(R.id.btnCreateAlbum)).check(matches(not(isDisplayed())));
 
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         String[] expectedAlbums = {"Buscando América", "Poeta del pueblo", "A Night at the Opera", "A Day at the Races"};
 
         for (String albumName : expectedAlbums) {
@@ -67,6 +73,12 @@ public class TestVynilsE2EHU01 {
         albumsCatalogBtn.perform(click());
 
         onView(withId(R.id.btnCreateAlbum)).check(matches(isDisplayed()));
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         String[] expectedAlbums = {"Buscando América", "Poeta del pueblo", "A Night at the Opera", "A Day at the Races"};
 
