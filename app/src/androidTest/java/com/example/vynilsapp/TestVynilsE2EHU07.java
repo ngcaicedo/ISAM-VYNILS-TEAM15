@@ -10,8 +10,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.not;
 
+import androidx.test.espresso.IdlingPolicies;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -23,20 +23,37 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.TimeUnit;
+
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class TestVynilsE2EHU07 {
     @Rule
     public ActivityScenarioRule<MainActivity> mActivityTestRule = new ActivityScenarioRule<>(MainActivity.class);
 
+    public void configureGlobalTimeout() {
+        // Configurar tiempo de espera para operaciones asíncronas
+        IdlingPolicies.setIdlingResourceTimeout(5, TimeUnit.SECONDS);
+
+        // Configurar tiempo de espera para interacciones con la UI
+        IdlingPolicies.setMasterPolicyTimeout(5, TimeUnit.SECONDS);
+    }
+
     @Test
     public void mainActivityTestCollector() {
+        configureGlobalTimeout();
 
         ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeCollectorMenu), withText("Coleccionista"), isDisplayed()));
         guestBtn.perform(click());
 
         ViewInteraction albumsCatalogBtn = onView(allOf(withId(R.id.btn_see_album_catalog), withText("Ver Catálogo de Álbumes"), isDisplayed()));
         albumsCatalogBtn.perform(click());
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         String[] expectedAlbums = {"Buscando América", "Poeta del pueblo", "A Night at the Opera", "A Day at the Races"};
 
@@ -49,6 +66,12 @@ public class TestVynilsE2EHU07 {
 
         ViewInteraction createAlbumBtn = onView(allOf(withId(R.id.btnCreateAlbum), withText("CREAR ALBUM"), isDisplayed()));
         createAlbumBtn.perform(click());
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         onView(withId(R.id.etName)).check(matches(isDisplayed()));
         onView(withId(R.id.etCover)).check(matches(isDisplayed()));
@@ -78,11 +101,11 @@ public class TestVynilsE2EHU07 {
 
         ViewInteraction saveAlbumBtn = onView(allOf(withId(R.id.btnSaveAlbum), withText("Guardar álbum"), isDisplayed()));
         saveAlbumBtn.perform(click());
-
     }
 
     @Test
     public void mainActivityTestCollectorVal() {
+        configureGlobalTimeout();
 
         ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeCollectorMenu), withText("Coleccionista"), isDisplayed()));
         guestBtn.perform(click());
@@ -97,8 +120,5 @@ public class TestVynilsE2EHU07 {
         }
 
         onView(allOf(withText("Reflections"), isDisplayed())).check(matches(withText("Reflections")));
-
     }
-
 }
-

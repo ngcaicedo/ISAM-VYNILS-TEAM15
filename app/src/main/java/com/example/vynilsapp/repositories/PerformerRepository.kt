@@ -1,24 +1,26 @@
 package com.example.vynilsapp.repositories
 import android.app.Application
 import android.util.Log
-import com.android.volley.VolleyError
-import com.example.vynilsapp.models.Album
 import com.example.vynilsapp.models.Performer
+import com.example.vynilsapp.network.CacheManager
 import com.example.vynilsapp.network.NetworkServiceAdapter
 
 class PerformerRepository(val application: Application) {
-    fun refreshData(callback: (List<Performer>)->Unit, onError: (VolleyError)->Unit) {
+    suspend fun refreshData(): List<Performer> {
         //Determinar la fuente de datos que se va a utilizar. Si es necesario consultar la red, ejecutar el siguiente código
-        NetworkServiceAdapter.getInstance(application).getPerformers({
-            //Guardar los coleccionistas de la variable it en un almacén de datos local para uso futuro
-            callback(it)
-        },
-            onError
-        )
+        return NetworkServiceAdapter.getInstance(application).getPerformers()
     }
 
-    fun getPerformer(id: String, typePerformer: String, onComplete: (Performer) -> Unit, onError: (VolleyError) -> Unit) {
-        Log.i("PerformerFragment", "PerformerRepository - typePerformer: ${typePerformer} | performerId: ${id}")
-        NetworkServiceAdapter.getInstance(application).getPerformer(id, typePerformer, onComplete, onError)
+    suspend fun getPerformer(id: Int, typePerformer: String): Performer {
+        val potentialResp = CacheManager.getInstance(application.applicationContext).getPerformerDetails(id)
+        return if (potentialResp.performerId == 0) {
+            Log.d("Cache decision", "get from network")
+            val performer = NetworkServiceAdapter.getInstance(application).getPerformer(id, typePerformer)
+            CacheManager.getInstance(application.applicationContext).addPerformerDetails(id, performer)
+            performer
+        } else {
+            Log.d("Cache decision", "return elements from cache")
+            potentialResp
+        }
     }
 }
