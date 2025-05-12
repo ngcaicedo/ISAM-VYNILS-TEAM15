@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.android.volley.VolleyError
 import com.example.vynilsapp.models.Album
 import com.example.vynilsapp.models.CreateAlbumRequest
 import com.example.vynilsapp.repositories.AlbumRepository
@@ -21,11 +20,11 @@ class CreateAlbumViewModel(application: Application) : AndroidViewModel(applicat
         get() = _albumCreated
     
     // Para manejar errores
-    private val _eventNetworkError = MutableLiveData<Boolean>(false)
+    private val _eventNetworkError = MutableLiveData(false)
     val eventNetworkError: LiveData<Boolean>
         get() = _eventNetworkError
     
-    private val _isLoading = MutableLiveData<Boolean>(false)
+    private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean>
         get() = _isLoading
     

@@ -73,9 +73,9 @@ class CreateAlbumFragment : Fragment() {
     
     private fun setupDatePicker() {
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            calendar.set(Calendar.YEAR, year)
-            calendar.set(Calendar.MONTH, month)
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            calendar[Calendar.YEAR] = year
+            calendar[Calendar.MONTH] = month
+            calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
             updateDateInView()
         }
         
@@ -83,9 +83,9 @@ class CreateAlbumFragment : Fragment() {
             DatePickerDialog(
                 requireContext(),
                 dateSetListener,
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
+                calendar[Calendar.YEAR],
+                calendar[Calendar.MONTH],
+                calendar[Calendar.DAY_OF_MONTH]
             ).show()
         }
     }

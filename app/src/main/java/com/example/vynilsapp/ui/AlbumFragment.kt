@@ -1,6 +1,7 @@
 package com.example.vynilsapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,13 +61,18 @@ class AlbumFragment : Fragment() {
             }
         }
 
+        // Click on cover and navigate to detail
+        viewModelAdapter!!.onClick = { album ->
+            Log.i("AlbumFragment", "Album clicked: ${album.name}")
+           val action = AlbumFragmentDirections.actionAlbumFragmentToAlbumDetailFragment(album.albumId)
+           findNavController().navigate(action)
+        }
         
         // Inicializar ViewModel
         val activity = requireActivity()
         activity.actionBar?.title = getString(R.string.app_name)
-        
-        viewModel = ViewModelProvider(this, AlbumViewModel.Factory(activity.application))
-            .get(AlbumViewModel::class.java)
+
+        viewModel = ViewModelProvider(this, AlbumViewModel.Factory(activity.application))[AlbumViewModel::class.java]
         
         // Observar cambios en el ViewModel
         viewModel.albums.observe(viewLifecycleOwner) { albums ->

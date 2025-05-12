@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("androidx.navigation.safeargs.kotlin")
+    id 'kotlin-kapt'
 }
 
 android {
@@ -53,7 +54,8 @@ dependencies {
     implementation libs.androidx.navigation.fragment
     implementation libs.androidx.navigation.ui
     implementation libs.androidx.navigation.dynamic.features
-    
+    implementation libs.coroutines.android
+
     // Dependencies for API calls
     implementation libs.retrofit
     implementation libs.volley

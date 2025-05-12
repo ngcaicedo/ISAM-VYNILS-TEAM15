@@ -65,11 +65,17 @@ Una vez aplique dicha sugerencia, siga estos pasos:
 3. Espere a que el proceso de ejecución de pruebas termine. Podrá ver los resultados en la parte inferior de Android Studio
 4. Si desea ejecutar las pruebas de `TestVynilsE2EHU02`, repita el paso 2, pero esta vez haga click derecho sobre el archivo `TestVynilsE2EHU02` y luego en Run
 5. Espere a que el proceso de ejecución de pruebas termine. Podrá ver los resultados en la parte inferior de Android Studio
+6. Haga click derecho sobre el archivo `TestVynilsE2EHU03` y luego en Run 
+7. Espere a que el proceso de ejecución de pruebas termine. Podrá ver los resultados en la parte inferior de Android Studio 
+8. Haga click derecho sobre el archivo `TestVynilsE2EHU04` y luego en Run 
+9. Espere a que el proceso de ejecución de pruebas termine. Podrá ver los resultados en la parte inferior de Android Studio 
+10. Haga click derecho sobre el archivo `TestVynilsE2EHU07` y luego en Run 
+11. Espere a que el proceso de ejecución de pruebas termine. Podrá ver los resultados en la parte inferior de Android Studio
 
 Nota: Se pueden presentar errores al ejecutar las pruebas de `TestVynilsE2EHU02` debido a los tiempos de respuesta de la API (La cual se encuentra desplegada en una arquitectura de capa gratuita AWS), para solventar esto, se recomienda aumentar el tiempo de espera en el `Thread.sleep` ubicado en la línea 94.
 
 ## Ubicación del APK
-El APK generado se encuentra en la ruta raiz del proyecto en la carpeta `APK`, el cual puede descargar e instalar en su dispositivo Android. Para instalar el APK, asegúrese de habilitar la opción de `Instalación de aplicaciones de fuentes desconocidas` en la configuración de su dispositivo. La aplicación es compatible con dispositivos Android 5.0 (Lollipop) y versiones superiores.
+El APK generado se encuentra en la ruta raiz del proyecto en la carpeta `APK\1.1.0`, el cual puede descargar e instalar en su dispositivo Android. Para instalar el APK, asegúrese de habilitar la opción de `Instalación de aplicaciones de fuentes desconocidas` en la configuración de su dispositivo. La aplicación es compatible con dispositivos Android 5.0 (Lollipop) y versiones superiores.
  
 
   
