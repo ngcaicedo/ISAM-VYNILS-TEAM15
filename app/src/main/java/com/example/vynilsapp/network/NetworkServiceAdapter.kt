@@ -9,6 +9,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.vynilsapp.models.Album
+import com.example.vynilsapp.models.Collector
 import com.example.vynilsapp.models.Performer
 import com.example.vynilsapp.models.CreateAlbumRequest
 import com.google.gson.Gson
@@ -197,5 +198,30 @@ class NetworkServiceAdapter (context: Context) {
 
     private fun postRequest(path: String, jsonBody: JSONObject, responseListener: Response.Listener<JSONObject>, errorListener: Response.ErrorListener): JsonObjectRequest {
         return JsonObjectRequest(Request.Method.POST, BASE_URL + path, jsonBody, responseListener, errorListener)
+    }
+
+    suspend fun getCollectors() = suspendCoroutine<List<Collector>> { continuation ->
+        requestQueue.add(
+            getRequest(
+                "collectors",
+                { response ->
+                    val resp = JSONArray(response)
+                    val list = mutableListOf<Collector>()
+                    for (i in 0 until resp.length()) {
+                        val item = resp.getJSONObject(i)
+                        val collector = Collector(
+                            collectorId = item.getInt("id"),
+                            name = item.getString("name"),
+                            telephone = item.getString("telephone"),
+                            email = item.getString("email")
+                        )
+                        list.add(i, collector)
+                    }
+                    continuation.resume(list)
+                },
+                {
+                    continuation.resumeWithException(it)
+                })
+        )
     }
 }

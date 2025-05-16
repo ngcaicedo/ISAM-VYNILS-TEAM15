@@ -34,6 +34,11 @@ class GuestMenuFragment : Fragment() {
             val action = GuestMenuFragmentDirections.actionGuestMenuFragmentToPerformerFragment(typeUser)
             findNavController().navigate(action)
         }
+
+        binding.btnSeeCollectos.setOnClickListener {
+            val action = GuestMenuFragmentDirections.actionGuestMenuFragmentToCollectorFragment()
+            findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {
