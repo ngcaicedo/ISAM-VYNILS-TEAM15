@@ -21,10 +21,6 @@ class CollectorFragment : Fragment() {
     private lateinit var viewModel: CollectorViewModel
     private var viewModelAdapter: CollectorsAdapter? = null
 
-    companion object {
-        // Bandera para indicar si es necesario refrescar los datos
-        var shouldRefreshData = false
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,18 +59,11 @@ class CollectorFragment : Fragment() {
         }
     }
 
-    // Modificar método onResume para refrescar solo cuando sea necesario
     override fun onResume() {
         super.onResume()
-        // Solo refrescar si la bandera está activada
-        if (shouldRefreshData) {
-            // Mostrar el indicador de carga
-            binding.progressCircular.visibility = View.VISIBLE
-            // Refrescar datos desde la API
-            viewModel.refreshDataFromNetwork()
-            // Restablecer la bandera
-            shouldRefreshData = false
-        }
+        binding.progressCircular.visibility = View.VISIBLE
+        viewModel.refreshDataFromNetwork()
+        
     }
 
     override fun onDestroyView() {
