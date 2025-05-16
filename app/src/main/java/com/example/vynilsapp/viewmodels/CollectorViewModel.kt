@@ -16,6 +16,11 @@ class CollectorViewModel(application: Application, private val ioDispatcher: Cor
     val collectors: LiveData<List<Collector>>
         get() = _collectors
 
+    private val _collector = MutableLiveData<Collector>()
+
+    val collector: LiveData<Collector>
+        get() = _collector
+
     private var _eventNetworkError = MutableLiveData(false)
 
     val eventNetworkError: LiveData<Boolean>
@@ -46,6 +51,20 @@ class CollectorViewModel(application: Application, private val ioDispatcher: Cor
 
     fun onNetworkErrorShown() {
         _isNetworkErrorShown.value = true
+    }
+
+    fun getCollectorById(collectorId: Int) {
+        try {
+            viewModelScope.launch(ioDispatcher) {
+                val data = collectorsRepository.getCollector(collectorId)
+                _collector.postValue(data)
+                _eventNetworkError.postValue(false)
+                _isNetworkErrorShown.postValue(false)
+            }
+        } catch (e: Exception) {
+            Log.d("CollectorViewModel", "Error: ${e.message}")
+            _eventNetworkError.value = true
+        }
     }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
