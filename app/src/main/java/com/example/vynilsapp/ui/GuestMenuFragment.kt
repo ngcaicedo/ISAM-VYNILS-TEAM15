@@ -36,7 +36,7 @@ class GuestMenuFragment : Fragment() {
         }
 
         binding.btnSeeCollectos.setOnClickListener {
-            val action = GuestMenuFragmentDirections.actionGuestMenuFragmentToCollectorFragment()
+            val action = GuestMenuFragmentDirections.actionGuestMenuFragmentToCollectorFragment(typeUser)
             findNavController().navigate(action)
         }
     }

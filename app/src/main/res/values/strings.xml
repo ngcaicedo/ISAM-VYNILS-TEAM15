@@ -40,5 +40,10 @@
     <string name="albumCoverDescription">Carátula del álbum</string>
     <string name="collectors">Todos los coleccionistas</string>
     <string name="list_collectors">Lista de coleccionistas</string>
+    
+    <!-- Strings del detalle del coleccionista -->
+    <string name="collector_email">Email:</string>
+    <string name="collector_phone">Teléfono:</string>
+    <string name="collector_detail">Detalle del coleccionista</string>
 
 </resources>
