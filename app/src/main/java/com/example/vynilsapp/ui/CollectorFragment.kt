@@ -21,7 +21,7 @@ class CollectorFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: CollectorViewModel
-    private var viewModelAdapter: CollectorsAdapter? = null
+    private lateinit var viewModelAdapter: CollectorsAdapter
     private val args: CollectorFragmentArgs by navArgs()
 
 
