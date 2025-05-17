@@ -31,16 +31,16 @@ class CollectorViewModel(application: Application, private val ioDispatcher: Cor
     }
 
     fun refreshDataFromNetwork() {
-        try {
-            viewModelScope.launch(ioDispatcher) {
+        viewModelScope.launch(ioDispatcher) {
+            try {
                 val data = collectorsRepository.refreshData()
                 _collectors.postValue(data)
                 _eventNetworkError.postValue(false)
                 _isNetworkErrorShown.postValue(false)
+            } catch (e: Exception) {
+                Log.d("CollectorViewModel", "Error: ${e.message}")
+                _eventNetworkError.postValue(true)
             }
-        } catch (e: Exception) {
-            Log.d("CollectorViewModel", "Error: ${e.message}")
-            _eventNetworkError.value = true
         }
     }
 
