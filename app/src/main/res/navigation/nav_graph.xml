@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_guestMenuFragment_to_performerFragment"
             app:destination="@id/performerFragment" />
+        <action
+            android:id="@+id/action_guestMenuFragment_to_collectorFragment"
+            app:destination="@id/collectorFragment" />
     </fragment>
 
     <fragment
@@ -86,5 +89,12 @@
         android:name="com.example.vynilsapp.ui.CreateAlbumFragment"
         android:label="@string/create_album_title"
         tools:layout="@layout/fragment_create_album" />
+
+    <fragment
+        android:id="@+id/collectorFragment"
+        android:name="com.example.vynilsapp.ui.CollectorFragment"
+        android:label="@string/collectors"
+        tools:layout="@layout/fragment_collector">
+    </fragment>
 
 </navigation> 
