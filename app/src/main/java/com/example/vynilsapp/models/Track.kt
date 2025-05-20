@@ -8,7 +8,5 @@ data class Track(
     @SerializedName("name")
     val name: String,
     @SerializedName("duration")
-    val duration: String,
-    @SerializedName("album")
-    val album: Album,
+    val duration: String
 )

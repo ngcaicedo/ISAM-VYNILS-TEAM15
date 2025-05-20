@@ -192,6 +192,29 @@ class NetworkServiceAdapter (context: Context) {
             { onError(it) }))
     }
 
+    fun addTrackToAlbum(albumId: Int, trackId: Int, onComplete: (Album) -> Unit, onError: (VolleyError) -> Unit) {
+        val requestBody = JSONObject().apply {
+            put("trackId", trackId)
+        }
+
+        requestQueue.add(
+            postRequest(
+                "albums/$albumId/tracks",
+                requestBody,
+                { response ->
+                    try {
+                        val updatedAlbum = gson.fromJson(response.toString(), Album::class.java)
+                        onComplete(updatedAlbum)
+                    } catch (e: Exception) {
+                        onError(VolleyError("Failed to parse response: ${e.message}"))
+                    }
+                },
+                { error -> onError(error) }
+            )
+        )
+
+    }
+
     private fun getRequest(path: String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
         return StringRequest(Request.Method.GET, BASE_URL + path, responseListener, errorListener)
     }

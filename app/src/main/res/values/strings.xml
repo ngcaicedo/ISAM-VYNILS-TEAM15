@@ -41,10 +41,13 @@
     <string name="collectors">Todos los coleccionistas</string>
     <string name="list_collectors">Lista de coleccionistas</string>
 
+    <!-- Strings de agregar track -->
     <string name="agregar_track">Agrega Cancion</string>
     <string name="add_track_title">Agrega Canción al Album</string>
     <string name="save_track_album">Agregar canción al álbum</string>
     <string name="track_selection">Canción</string>
     <string name="album_selection">Álbum</string>
+    <string name="track_added_success">Track added successfully!</string>
+    <string name="error_adding_track">Error adding track to album</string>
 
 </resources>

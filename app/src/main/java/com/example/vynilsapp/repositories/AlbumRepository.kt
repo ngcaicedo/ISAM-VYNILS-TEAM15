@@ -35,4 +35,14 @@ class AlbumRepository(val application: Application) {
         NetworkServiceAdapter.getInstance(application)
             .createAlbum(albumRequest, onComplete, onError)
     }
+
+    fun addTrackToAlbum(
+        albumId: Int,
+        trackId: Int,
+        onComplete: (Album) -> Unit,
+        onError: (VolleyError) -> Unit
+    ) {
+        NetworkServiceAdapter.getInstance(application)
+            .addTrackToAlbum(albumId, trackId, onComplete, onError)
+    }
 }
