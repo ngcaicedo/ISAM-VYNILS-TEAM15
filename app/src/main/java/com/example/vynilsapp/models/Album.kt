@@ -16,5 +16,7 @@ data class Album(
     @SerializedName("genre")
     val genre: String,
     @SerializedName("recordLabel")
-    val recordLabel: String
+    val recordLabel: String,
+    @SerializedName("tracks")
+    val tracks: MutableList<Track> = mutableListOf()
 )

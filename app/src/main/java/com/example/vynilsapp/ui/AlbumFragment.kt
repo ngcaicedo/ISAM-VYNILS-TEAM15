@@ -52,12 +52,17 @@ class AlbumFragment : Fragment() {
 
         if (typeUser != "collector") {
             binding.btnCreateAlbum.visibility = View.GONE
+            binding.btnAddTrack.visibility = View.GONE
         } else {
             binding.btnCreateAlbum.visibility = View.VISIBLE
+            binding.btnAddTrack.visibility = View.VISIBLE
             // Configurar botón de creación de álbum
             binding.btnCreateAlbum.setOnClickListener {
                 // Navegar al fragmento de creación de álbum
                 findNavController().navigate(R.id.action_albumFragment_to_createAlbumFragment)
+            }
+            binding.btnAddTrack.setOnClickListener{
+                findNavController().navigate(R.id.action_albumFragment_to_addTrackFragment)
             }
         }
 

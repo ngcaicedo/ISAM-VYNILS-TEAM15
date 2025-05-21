@@ -18,6 +18,7 @@ import org.json.JSONObject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
+import com.example.vynilsapp.models.Track
 
 class NetworkServiceAdapter (context: Context) {
     companion object {
@@ -151,6 +152,7 @@ class NetworkServiceAdapter (context: Context) {
         makeRequestAndProcess("bands", isBand = true)
     }
 
+
     private fun processResponse(response: String, isBand: Boolean, list: MutableList<Performer>, onError: (Throwable) -> Unit) {
         try {
             val resp = JSONArray(response)
@@ -190,6 +192,35 @@ class NetworkServiceAdapter (context: Context) {
                 }
             },
             { onError(it) }))
+    }
+
+    fun addTrackToAlbum(
+        albumId: Int,
+        trackName: String,
+        trackDuration: String,
+        onComplete: (Album) -> Unit,
+        onError: (VolleyError) -> Unit
+    ) {
+        val requestBody = JSONObject().apply {
+            put("name", trackName)
+            put("duration", trackDuration)
+        }
+
+        requestQueue.add(
+            postRequest(
+                "albums/$albumId/tracks",
+                requestBody,
+                { response ->
+                    try {
+                        val updatedAlbum = gson.fromJson(response.toString(), Album::class.java)
+                        onComplete(updatedAlbum)
+                    } catch (e: Exception) {
+                        onError(VolleyError("Failed to parse response: ${e.message}"))
+                    }
+                },
+                { error -> onError(error) }
+            )
+        )
     }
 
     private fun getRequest(path: String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
