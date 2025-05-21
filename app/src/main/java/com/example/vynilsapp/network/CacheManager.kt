@@ -2,6 +2,7 @@ package com.example.vynilsapp.network
 
 import android.content.Context
 import com.example.vynilsapp.models.Album
+import com.example.vynilsapp.models.Collector
 import com.example.vynilsapp.models.Performer
 
 class CacheManager(context: Context) {
@@ -33,5 +34,15 @@ class CacheManager(context: Context) {
     }
     fun getPerformerDetails(performerId: Int): Performer {
         return performerDetails[performerId] ?: Performer(0, "", "", "", "", "")
+    }
+
+    private var collectorDetails: HashMap<Int, Collector> = hashMapOf()
+    fun addCollectorDetails(collectorId: Int, detail: Collector) {
+        if (!collectorDetails.containsKey(collectorId)) {
+            collectorDetails[collectorId] = detail
+        }
+    }
+    fun getCollectorDetails(collectorId: Int): Collector {
+        return collectorDetails[collectorId] ?: Collector(0, "", "", "")
     }
 }

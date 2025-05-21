@@ -255,4 +255,24 @@ class NetworkServiceAdapter (context: Context) {
                 })
         )
     }
+
+    suspend fun getCollector(id: Int) = suspendCoroutine { continuation ->
+        requestQueue.add(
+            getRequest(
+                "collectors/$id",
+                { response ->
+                    val item = JSONObject(response)
+                    val collector = Collector(
+                        collectorId = id,
+                        name = item.getString("name"),
+                        telephone = item.getString("telephone"),
+                        email = item.getString("email")
+                    )
+                    continuation.resume(collector)
+                },
+                {
+                    continuation.resumeWithException(it)
+                })
+        )
+    }
 }
