@@ -104,6 +104,22 @@
         android:name="com.example.vynilsapp.ui.CollectorFragment"
         android:label="@string/collectors"
         tools:layout="@layout/fragment_collector">
+        <argument
+            android:name="typeUser"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_collectorFragment_to_collectorDetailFragment"
+            app:destination="@id/collectorDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/collectorDetailFragment"
+        android:name="com.example.vynilsapp.ui.CollectorDetailFragment"
+        android:label="@string/collector_detail"
+        tools:layout="@layout/fragment_collector_detail">
+        <argument
+            android:name="collectorId"
+            app:argType="integer" />
     </fragment>
 
 </navigation> 
