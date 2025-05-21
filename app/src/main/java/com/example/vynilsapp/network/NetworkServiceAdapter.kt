@@ -9,6 +9,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.vynilsapp.models.Album
+import com.example.vynilsapp.models.Collector
 import com.example.vynilsapp.models.Performer
 import com.example.vynilsapp.models.CreateAlbumRequest
 import com.google.gson.Gson
@@ -17,6 +18,7 @@ import org.json.JSONObject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
+import com.example.vynilsapp.models.Track
 
 class NetworkServiceAdapter (context: Context) {
     companion object {
@@ -150,6 +152,7 @@ class NetworkServiceAdapter (context: Context) {
         makeRequestAndProcess("bands", isBand = true)
     }
 
+
     private fun processResponse(response: String, isBand: Boolean, list: MutableList<Performer>, onError: (Throwable) -> Unit) {
         try {
             val resp = JSONArray(response)
@@ -191,11 +194,85 @@ class NetworkServiceAdapter (context: Context) {
             { onError(it) }))
     }
 
+    fun addTrackToAlbum(
+        albumId: Int,
+        trackName: String,
+        trackDuration: String,
+        onComplete: (Album) -> Unit,
+        onError: (VolleyError) -> Unit
+    ) {
+        val requestBody = JSONObject().apply {
+            put("name", trackName)
+            put("duration", trackDuration)
+        }
+
+        requestQueue.add(
+            postRequest(
+                "albums/$albumId/tracks",
+                requestBody,
+                { response ->
+                    try {
+                        val updatedAlbum = gson.fromJson(response.toString(), Album::class.java)
+                        onComplete(updatedAlbum)
+                    } catch (e: Exception) {
+                        onError(VolleyError("Failed to parse response: ${e.message}"))
+                    }
+                },
+                { error -> onError(error) }
+            )
+        )
+    }
+
     private fun getRequest(path: String, responseListener: Response.Listener<String>, errorListener: Response.ErrorListener): StringRequest {
         return StringRequest(Request.Method.GET, BASE_URL + path, responseListener, errorListener)
     }
 
     private fun postRequest(path: String, jsonBody: JSONObject, responseListener: Response.Listener<JSONObject>, errorListener: Response.ErrorListener): JsonObjectRequest {
         return JsonObjectRequest(Request.Method.POST, BASE_URL + path, jsonBody, responseListener, errorListener)
+    }
+
+    suspend fun getCollectors() = suspendCoroutine<List<Collector>> { continuation ->
+        requestQueue.add(
+            getRequest(
+                "collectors",
+                { response ->
+                    val resp = JSONArray(response)
+                    val list = mutableListOf<Collector>()
+                    for (i in 0 until resp.length()) {
+                        val item = resp.getJSONObject(i)
+                        val collector = Collector(
+                            collectorId = item.getInt("id"),
+                            name = item.getString("name"),
+                            telephone = item.getString("telephone"),
+                            email = item.getString("email")
+                        )
+                        list.add(i, collector)
+                    }
+                    continuation.resume(list)
+                },
+                {
+                    continuation.resumeWithException(it)
+                })
+        )
+    }
+
+    suspend fun getCollector(id: Int) = suspendCoroutine { continuation ->
+        requestQueue.add(
+            getRequest(
+                "collectors/$id",
+                { response ->
+                    val item = JSONObject(response)
+                    val collector = Collector(
+                        collectorId = id,
+                        name = item.getString("name"),
+                        telephone = item.getString("telephone"),
+                        email = item.getString("email")
+                    )
+                    continuation.resume(collector)
+                },
+                {
+                    continuation.resumeWithException(it)
+                })
+        )
     }
 }
