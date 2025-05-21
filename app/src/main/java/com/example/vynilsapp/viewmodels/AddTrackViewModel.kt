@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.android.volley.VolleyError
 import com.example.vynilsapp.models.Album
 import com.example.vynilsapp.repositories.AlbumRepository
 import kotlinx.coroutines.launch
@@ -21,10 +20,10 @@ class AddTrackViewModel(application: Application) : AndroidViewModel(application
     private val _albumUpdated = MutableLiveData<Album>()
     val albumUpdated: LiveData<Album> get() = _albumUpdated
 
-    private val _eventNetworkError = MutableLiveData<Boolean>(false)
+    private val _eventNetworkError = MutableLiveData(false)
     val eventNetworkError: LiveData<Boolean> get() = _eventNetworkError
 
-    private val _isLoading = MutableLiveData<Boolean>(false)
+    private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
     private val _errorMessage = MutableLiveData<String>()

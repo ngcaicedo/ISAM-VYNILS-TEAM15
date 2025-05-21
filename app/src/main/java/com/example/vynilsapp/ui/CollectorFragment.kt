@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vynilsapp.R
@@ -22,7 +21,6 @@ class CollectorFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: CollectorViewModel
     private lateinit var viewModelAdapter: CollectorsAdapter
-    private val args: CollectorFragmentArgs by navArgs()
 
 
     override fun onCreateView(
@@ -38,16 +36,13 @@ class CollectorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Obtener el tipo de usuario de los argumentos
-        val typeUser = args.typeUser
-
         // Configurar RecyclerView con GridLayoutManager de 2 columnas
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = GridLayoutManager(context, 2)
         recyclerView.adapter = viewModelAdapter
 
         // Configurar el click listener para navegación al detalle
-        viewModelAdapter?.onClick = { collector ->
+        viewModelAdapter.onClick = { collector ->
             val action = CollectorFragmentDirections.actionCollectorFragmentToCollectorDetailFragment(collector.collectorId)
             findNavController().navigate(action)
         }
@@ -61,7 +56,7 @@ class CollectorFragment : Fragment() {
         // Observar cambios en el ViewModel
         viewModel.collectors.observe(viewLifecycleOwner) { collectors ->
             collectors?.let {
-                viewModelAdapter!!.collectors = it
+                viewModelAdapter.collectors = it
                 binding.progressCircular.visibility = View.GONE
             }
         }

@@ -35,7 +35,7 @@ class AddTrackFragment : Fragment() {
         viewModel = ViewModelProvider(
             this,
             AddTrackViewModel.Factory(requireActivity().application)
-        ).get(AddTrackViewModel::class.java)
+        )[AddTrackViewModel::class.java]
 
         setupObservers()
         setupSaveButton()

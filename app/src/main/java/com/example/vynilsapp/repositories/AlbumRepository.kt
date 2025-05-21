@@ -2,14 +2,11 @@ package com.example.vynilsapp.repositories
 
 import android.app.Application
 import android.util.Log
-import com.android.volley.Response
 import com.android.volley.VolleyError
-import com.android.volley.toolbox.JsonObjectRequest
 import com.example.vynilsapp.models.Album
 import com.example.vynilsapp.models.CreateAlbumRequest
 import com.example.vynilsapp.network.CacheManager
 import com.example.vynilsapp.network.NetworkServiceAdapter
-import org.json.JSONObject
 
 class AlbumRepository(val application: Application) {
     suspend fun refreshData(): List<Album> {
