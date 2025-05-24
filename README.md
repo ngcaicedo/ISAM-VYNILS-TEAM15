@@ -69,13 +69,23 @@ Una vez aplique dicha sugerencia, siga estos pasos:
 7. Espere a que el proceso de ejecución de pruebas termine. Podrá ver los resultados en la parte inferior de Android Studio 
 8. Haga click derecho sobre el archivo `TestVynilsE2EHU04` y luego en Run 
 9. Espere a que el proceso de ejecución de pruebas termine. Podrá ver los resultados en la parte inferior de Android Studio 
-10. Haga click derecho sobre el archivo `TestVynilsE2EHU07` y luego en Run 
-11. Espere a que el proceso de ejecución de pruebas termine. Podrá ver los resultados en la parte inferior de Android Studio
+10. Haga click derecho sobre el archivo `TestVynilsE2EHU05` y luego en Run 
+11. Espere a que el proceso de ejecución de pruebas termine. Podrá ver los resultados en la parte inferior de Android Studio 
+12. Haga click derecho sobre el archivo `TestVynilsE2EHU06` y luego en Run
+13. Espere a que el proceso de ejecución de pruebas termine. Podrá ver los resultados en la parte inferior de Android Studio
+14. Haga click derecho sobre el archivo `TestVynilsE2EHU07` y luego en Run 
+15. Espere a que el proceso de ejecución de pruebas termine. Podrá ver los resultados en la parte inferior de Android Studio
+16. Haga click derecho sobre el archivo `TestVynilsE2EHU08` y luego en Run
+17. Espere a que el proceso de ejecución de pruebas termine. Podrá ver los resultados en la parte inferior de Android Studio
 
-Nota: Se pueden presentar errores al ejecutar las pruebas de `TestVynilsE2EHU02` debido a los tiempos de respuesta de la API (La cual se encuentra desplegada en una arquitectura de capa gratuita AWS), para solventar esto, se recomienda aumentar el tiempo de espera en el `Thread.sleep` ubicado en la línea 94.
+### Nota:
+```
+- Se pueden presentar errores al ejecutar las pruebas de `TestVynilsE2EHU02` debido a los tiempos de respuesta de la API (La cual se encuentra desplegada en una arquitectura de capa gratuita AWS), para solventar esto, se recomienda aumentar el tiempo de espera en el `Thread.sleep` ubicado en la línea 94.
+- Para ejecutar las pruebas en multi-idiomas, se recomienda cambiar el idioma del emulador, para esto, diríjase a la configuración del emulador y cambie el idioma. Luego, ejecute las pruebas nuevamente. Los idiomas soportados son Alemán, Francés, Español e Ingles
+```
 
 ## Ubicación del APK
-El APK generado se encuentra en la ruta raiz del proyecto en la carpeta `APK\1.1.0`, el cual puede descargar e instalar en su dispositivo Android. Para instalar el APK, asegúrese de habilitar la opción de `Instalación de aplicaciones de fuentes desconocidas` en la configuración de su dispositivo. La aplicación es compatible con dispositivos Android 5.0 (Lollipop) y versiones superiores.
+El APK generado se encuentra en la ruta raiz del proyecto en la carpeta `APK\1.2.0`, el cual puede descargar e instalar en su dispositivo Android. Para instalar el APK, asegúrese de habilitar la opción de `Instalación de aplicaciones de fuentes desconocidas` en la configuración de su dispositivo. La aplicación es compatible con dispositivos Android 5.0 (Lollipop) y versiones superiores.
  
 
   
