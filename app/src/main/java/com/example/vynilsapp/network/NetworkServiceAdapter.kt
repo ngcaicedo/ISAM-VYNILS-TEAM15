@@ -18,7 +18,6 @@ import org.json.JSONObject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
-import com.example.vynilsapp.models.Track
 
 class NetworkServiceAdapter (context: Context) {
     companion object {
