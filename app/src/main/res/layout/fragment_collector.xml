@@ -6,61 +6,29 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.AlbumFragment">
+        tools:context=".ui.CollectorFragment">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvAlbumsTitle"
+            android:id="@+id/tvCollectorsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/todos_los_albumes"
+            android:text="@string/collectors"
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCreateAlbum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="16dp"
-            android:text="@string/crear_album"
-            app:icon="@android:drawable/ic_input_add"
-            app:iconPadding="8dp"
-            app:cornerRadius="20dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:layout_constraintTop_toBottomOf="@id/tvAlbumsTitle"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAddTrack"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="8dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:text="@string/agregar_track"
-            app:cornerRadius="20dp"
-            app:icon="@android:drawable/ic_input_add"
-            app:iconPadding="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvAlbumsTitle" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            android:contentDescription="@string/album_catalog_list"
+            android:contentDescription="@string/list_collectors"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnCreateAlbum" />
+            app:layout_constraintTop_toBottomOf="@id/tvCollectorsTitle"/>
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressCircular"

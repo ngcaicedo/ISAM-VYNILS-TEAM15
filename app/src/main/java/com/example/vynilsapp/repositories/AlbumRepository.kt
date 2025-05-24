@@ -1,4 +1,5 @@
 package com.example.vynilsapp.repositories
+
 import android.app.Application
 import android.util.Log
 import com.android.volley.VolleyError
@@ -34,5 +35,25 @@ class AlbumRepository(val application: Application) {
     ) {
         NetworkServiceAdapter.getInstance(application)
             .createAlbum(albumRequest, onComplete, onError)
+    }
+
+    fun addTrackToAlbum(
+        albumId: Int,
+        trackName: String,
+        trackDuration: String,
+        onComplete: (Album) -> Unit,
+        onError: (VolleyError) -> Unit
+    ) {
+        NetworkServiceAdapter.getInstance(application).addTrackToAlbum(
+            albumId,
+            trackName,
+            trackDuration,
+            { updatedAlbum ->
+                CacheManager.getInstance(application.applicationContext)
+                    .addAlbumDetails(updatedAlbum.albumId, updatedAlbum)
+                onComplete(updatedAlbum)
+            },
+            onError
+        )
     }
 }

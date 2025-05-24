@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VYNILS</string>
+    <string name="welcome_message">Willkommen bei Vynils</string>
+    <string name="login_message" translatable="false">Anmelden als</string>
+    <string name="see_album_catalog" translatable="false">Albumkatalog anzeigen</string>
+    <string name="see_performer_catalog" translatable="false">Künstlerkatalog anzeigen</string>
+    <string name="see_collectors">Sammler anzeigen</string>
+    <string name="album_catalog_list">Alle Alben</string>
+    <string name="crear_album">ALBUM ERSTELLEN</string>
+    <string name="todos_los_albumes">Alle Alben</string>
+    <string name="guest_menu_title">Gesamte Sammlung</string>
+    <string name="loading">Laden</string>
+    <string name="see_guest_menu">Gast</string>
+    <string name="see_collector_menu">Sammler</string>
+
+    <!-- Strings für das Erstellen eines Albums -->
+    <string name="create_album_title">Neues Album erstellen</string>
+    <string name="album_name">Albumname</string>
+    <string name="album_cover">Cover-URL</string>
+    <string name="album_release_date">Erscheinungsdatum (JJJJ-MM-TT)</string>
+    <string name="album_description">Beschreibung</string>
+    <string name="album_genre">Genre</string>
+    <string name="album_record_label">Plattenlabel</string>
+    <string name="save_album">Album speichern</string>
+    <string name="album_created_success">Album erfolgreich erstellt</string>
+    <string name="error_creating_album">Fehler beim Erstellen des Albums</string>
+    <string name="fill_all_fields">Bitte alle Felder ausfüllen</string>
+
+    <!-- Künstler-Strings -->
+    <string name="todos_los_performers">Alle Künstler</string>
+    <string name="performer_catalog_list">Alle Künstler</string>
+    <string name="performer_name">NAME</string>
+    <string name="performer_description">BESCHREIBUNG</string>
+    <string name="performer_birth_date">GEBURTSDATUM</string>
+    <string name="performer_creation_date">GRÜNDUNGSDATUM</string>
+    <string name="performerCoverDescription">Künstlerfoto</string>
+
+    <!-- Album-Detail-Strings -->
+    <string name="album_release">Veröffentlichung</string>
+    <string name="albumCoverDescription">Albumcover</string>
+    <string name="collectors">Alle Sammler</string>
+    <string name="list_collectors">Sammlerliste</string>
+
+    <!-- Sammler-Detail-Strings -->
+    <string name="collector_email">E-Mail:</string>
+    <string name="collector_phone">Telefon:</string>
+    <string name="collector_detail">Sammler-Details</string>
+
+    <!-- Track hinzufügen Strings -->
+    <string name="agregar_track">Track hinzufügen</string>
+    <string name="add_track_title">Track zum Album hinzufügen</string>
+    <string name="save_track_album">Track zum Album hinzufügen</string>
+    <string name="track_name">Trackname</string>
+    <string name="track_duration">Dauer</string>
+    <string name="album_selection">Album</string>
+    <string name="track_added_success">Track erfolgreich hinzugefügt!</string>
+    <string name="error_adding_track">Fehler beim Hinzufügen des Tracks zum Album</string>
+    <string name="invalid_selection">Bitte wählen Sie einen gültigen Track oder ein gültiges Album aus</string>
+</resources>
