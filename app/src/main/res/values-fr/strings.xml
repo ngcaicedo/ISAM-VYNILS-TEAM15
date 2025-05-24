@@ -43,8 +43,8 @@
     <string name="list_collectors">Liste des collectionneurs</string>
 
     <!-- Strings du détail du collectionneur -->
-    <string name="collector_email">Email :</string>
-    <string name="collector_phone">Téléphone :</string>
+    <string name="collector_email">Email:</string>
+    <string name="collector_phone">Téléphone:</string>
     <string name="collector_detail">Détail du collectionneur</string>
 
     <!-- Strings pour ajouter une piste -->

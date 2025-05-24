@@ -43,10 +43,10 @@ public class TestVynilsE2EHU07 {
     public void mainActivityTestCollector() {
         configureGlobalTimeout();
 
-        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeCollectorMenu), withText("Coleccionista"), isDisplayed()));
+        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeCollectorMenu), isDisplayed()));
         guestBtn.perform(click());
 
-        ViewInteraction albumsCatalogBtn = onView(allOf(withId(R.id.btn_see_album_catalog), withText("Ver Catálogo de Álbumes"), isDisplayed()));
+        ViewInteraction albumsCatalogBtn = onView(allOf(withId(R.id.btn_see_album_catalog), isDisplayed()));
         albumsCatalogBtn.perform(click());
 
         try {
@@ -64,7 +64,7 @@ public class TestVynilsE2EHU07 {
 
         onView(withId(R.id.btnCreateAlbum)).check(matches(isDisplayed()));
 
-        ViewInteraction createAlbumBtn = onView(allOf(withId(R.id.btnCreateAlbum), withText("CREAR ALBUM"), isDisplayed()));
+        ViewInteraction createAlbumBtn = onView(allOf(withId(R.id.btnCreateAlbum), isDisplayed()));
         createAlbumBtn.perform(click());
 
         try {
@@ -99,7 +99,7 @@ public class TestVynilsE2EHU07 {
         ViewInteraction albumRecordLabelTxt = onView(withId(R.id.actvRecordLabel));
         albumRecordLabelTxt.perform(scrollTo(), replaceText("Sony Music"), closeSoftKeyboard());
 
-        ViewInteraction saveAlbumBtn = onView(allOf(withId(R.id.btnSaveAlbum), withText("Guardar álbum"), isDisplayed()));
+        ViewInteraction saveAlbumBtn = onView(allOf(withId(R.id.btnSaveAlbum), isDisplayed()));
         saveAlbumBtn.perform(click());
     }
 
@@ -107,10 +107,10 @@ public class TestVynilsE2EHU07 {
     public void mainActivityTestCollectorVal() {
         configureGlobalTimeout();
 
-        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeCollectorMenu), withText("Coleccionista"), isDisplayed()));
+        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeCollectorMenu), isDisplayed()));
         guestBtn.perform(click());
 
-        ViewInteraction albumsCatalogBtn = onView(allOf(withId(R.id.btn_see_album_catalog), withText("Ver Catálogo de Álbumes"), isDisplayed()));
+        ViewInteraction albumsCatalogBtn = onView(allOf(withId(R.id.btn_see_album_catalog), isDisplayed()));
         albumsCatalogBtn.perform(click());
 
         try {
