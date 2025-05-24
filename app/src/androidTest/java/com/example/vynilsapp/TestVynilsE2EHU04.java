@@ -21,6 +21,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @LargeTest
@@ -41,10 +43,10 @@ public class TestVynilsE2EHU04 {
     public void mainActivityTestPerformerDetailBandGuest() {
         configureGlobalTimeout();
 
-        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeGuestMenu), withText("Invitado"), isDisplayed()));
+        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeGuestMenu), isDisplayed()));
         guestBtn.perform(click());
 
-        ViewInteraction performerCatalogBtn = onView(allOf(withId(R.id.btn_see_performer_catalog), withText("Ver Catálogo de Artistas"), isDisplayed()));
+        ViewInteraction performerCatalogBtn = onView(allOf(withId(R.id.btn_see_performer_catalog), isDisplayed()));
         performerCatalogBtn.perform(click());
 
         try {
@@ -62,8 +64,15 @@ public class TestVynilsE2EHU04 {
             e.printStackTrace();
         }
 
-        String[] expectedLabels = {"NOMBRE", "FECHA CREACIÓN", "DESCRIPCIÓN"};
+        // Obtener textos traducidos desde recursos
+        final List<String> expectedLabels = new ArrayList<>();
+        mActivityTestRule.getScenario().onActivity(activity -> {
+            expectedLabels.add(activity.getString(R.string.performer_name));
+            expectedLabels.add(activity.getString(R.string.performer_creation_date));
+            expectedLabels.add(activity.getString(R.string.performer_description));
+        });
 
+        // Validar que los labels traducidos están visibles
         for (String label : expectedLabels) {
             onView(allOf(withText(label), isDisplayed()))
                     .check(matches(withText(label)));
@@ -78,10 +87,10 @@ public class TestVynilsE2EHU04 {
     public void mainActivityTestPerformerDetailMusicianGuest() {
         configureGlobalTimeout();
 
-        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeGuestMenu), withText("Invitado"), isDisplayed()));
+        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeGuestMenu), isDisplayed()));
         guestBtn.perform(click());
 
-        ViewInteraction performerCatalogBtn = onView(allOf(withId(R.id.btn_see_performer_catalog), withText("Ver Catálogo de Artistas"), isDisplayed()));
+        ViewInteraction performerCatalogBtn = onView(allOf(withId(R.id.btn_see_performer_catalog), isDisplayed()));
         performerCatalogBtn.perform(click());
 
         try {
@@ -99,8 +108,15 @@ public class TestVynilsE2EHU04 {
             e.printStackTrace();
         }
 
-        String[] expectedLabels = {"NOMBRE", "FECHA NACIMIENTO", "DESCRIPCIÓN"};
+        // Obtener textos traducidos desde recursos
+        final List<String> expectedLabels = new ArrayList<>();
+        mActivityTestRule.getScenario().onActivity(activity -> {
+            expectedLabels.add(activity.getString(R.string.performer_name));
+            expectedLabels.add(activity.getString(R.string.performer_birth_date));
+            expectedLabels.add(activity.getString(R.string.performer_description));
+        });
 
+        // Validar que los labels traducidos están visibles
         for (String label : expectedLabels) {
             onView(allOf(withText(label), isDisplayed()))
                     .check(matches(withText(label)));
@@ -115,10 +131,10 @@ public class TestVynilsE2EHU04 {
     public void mainActivityTestPerformerDetailBandCollector() {
         configureGlobalTimeout();
 
-        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeCollectorMenu), withText("Coleccionista"), isDisplayed()));
+        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeCollectorMenu), isDisplayed()));
         guestBtn.perform(click());
 
-        ViewInteraction performerCatalogBtn = onView(allOf(withId(R.id.btn_see_performer_catalog), withText("Ver Catálogo de Artistas"), isDisplayed()));
+        ViewInteraction performerCatalogBtn = onView(allOf(withId(R.id.btn_see_performer_catalog), isDisplayed()));
         performerCatalogBtn.perform(click());
 
         try {
@@ -136,8 +152,15 @@ public class TestVynilsE2EHU04 {
             e.printStackTrace();
         }
 
-        String[] expectedLabels = {"NOMBRE", "FECHA CREACIÓN", "DESCRIPCIÓN"};
+        // Obtener textos traducidos desde recursos
+        final List<String> expectedLabels = new ArrayList<>();
+        mActivityTestRule.getScenario().onActivity(activity -> {
+            expectedLabels.add(activity.getString(R.string.performer_name));
+            expectedLabels.add(activity.getString(R.string.performer_creation_date));
+            expectedLabels.add(activity.getString(R.string.performer_description));
+        });
 
+        // Validar que los labels traducidos están visibles
         for (String label : expectedLabels) {
             onView(allOf(withText(label), isDisplayed()))
                     .check(matches(withText(label)));
@@ -152,10 +175,10 @@ public class TestVynilsE2EHU04 {
     public void mainActivityTestPerformerDetailMusicianCollector() {
         configureGlobalTimeout();
 
-        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeCollectorMenu), withText("Coleccionista"), isDisplayed()));
+        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeCollectorMenu), isDisplayed()));
         guestBtn.perform(click());
 
-        ViewInteraction performerCatalogBtn = onView(allOf(withId(R.id.btn_see_performer_catalog), withText("Ver Catálogo de Artistas"), isDisplayed()));
+        ViewInteraction performerCatalogBtn = onView(allOf(withId(R.id.btn_see_performer_catalog), isDisplayed()));
         performerCatalogBtn.perform(click());
 
         try {
@@ -173,8 +196,15 @@ public class TestVynilsE2EHU04 {
             e.printStackTrace();
         }
 
-        String[] expectedLabels = {"NOMBRE", "FECHA NACIMIENTO", "DESCRIPCIÓN"};
+        // Obtener textos traducidos desde recursos
+        final List<String> expectedLabels = new ArrayList<>();
+        mActivityTestRule.getScenario().onActivity(activity -> {
+            expectedLabels.add(activity.getString(R.string.performer_name));
+            expectedLabels.add(activity.getString(R.string.performer_birth_date));
+            expectedLabels.add(activity.getString(R.string.performer_description));
+        });
 
+        // Validar que los labels traducidos están visibles
         for (String label : expectedLabels) {
             onView(allOf(withText(label), isDisplayed()))
                     .check(matches(withText(label)));
@@ -184,7 +214,6 @@ public class TestVynilsE2EHU04 {
         onView(withSubstring("Es un cantante, compositor, músico, actor, abogado, político y activista")).check(matches(isDisplayed()));
         onView(withText("1948-07-16")).check(matches(isDisplayed()));
     }
-
 }
 
 

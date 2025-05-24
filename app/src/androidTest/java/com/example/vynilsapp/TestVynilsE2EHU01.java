@@ -40,10 +40,10 @@ public class TestVynilsE2EHU01 {
     public void mainActivityTestGuest() {
         configureGlobalTimeout();
 
-        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeGuestMenu), withText("Invitado"), isDisplayed()));
+        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeGuestMenu), isDisplayed()));
         guestBtn.perform(click());
 
-        ViewInteraction albumsCatalogBtn = onView(allOf(withId(R.id.btn_see_album_catalog), withText("Ver Catálogo de Álbumes"), isDisplayed()));
+        ViewInteraction albumsCatalogBtn = onView(allOf(withId(R.id.btn_see_album_catalog), isDisplayed()));
         albumsCatalogBtn.perform(click());
 
         onView(withId(R.id.btnCreateAlbum)).check(matches(not(isDisplayed())));
@@ -66,10 +66,10 @@ public class TestVynilsE2EHU01 {
     public void mainActivityTestCollector() {
         configureGlobalTimeout();
 
-        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeCollectorMenu), withText("Coleccionista"), isDisplayed()));
+        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeCollectorMenu), isDisplayed()));
         guestBtn.perform(click());
 
-        ViewInteraction albumsCatalogBtn = onView(allOf(withId(R.id.btn_see_album_catalog), withText("Ver Catálogo de Álbumes"), isDisplayed()));
+        ViewInteraction albumsCatalogBtn = onView(allOf(withId(R.id.btn_see_album_catalog), isDisplayed()));
         albumsCatalogBtn.perform(click());
 
         onView(withId(R.id.btnCreateAlbum)).check(matches(isDisplayed()));
