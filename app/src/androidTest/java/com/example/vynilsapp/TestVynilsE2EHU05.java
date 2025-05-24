@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class TestVynilsE2EHU03 {
+public class TestVynilsE2EHU05 {
     @Rule
     public ActivityScenarioRule<MainActivity> mActivityTestRule = new ActivityScenarioRule<>(MainActivity.class);
 
@@ -43,8 +43,8 @@ public class TestVynilsE2EHU03 {
         ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeGuestMenu), isDisplayed()));
         guestBtn.perform(click());
 
-        ViewInteraction performerCatalogBtn = onView(allOf(withId(R.id.btn_see_performer_catalog), isDisplayed()));
-        performerCatalogBtn.perform(click());
+        ViewInteraction collectorCatalogBtn = onView(allOf(withId(R.id.btn_see_collectos), isDisplayed()));
+        collectorCatalogBtn.perform(click());
 
         try {
             Thread.sleep(5000);
@@ -52,11 +52,11 @@ public class TestVynilsE2EHU03 {
             e.printStackTrace();
         }
 
-        String[] expectedPerformers = {"Rubén Blades Bellido de Luna", "Queen"};
+        String[] expectedCollectors = {"Manolo Bellon", "Jaime Monsalve"};
 
-        for (String performerName : expectedPerformers) {
-            onView(allOf(withText(performerName), isDisplayed()))
-                    .check(matches(withText(performerName)));
+        for (String collectorName : expectedCollectors) {
+            onView(allOf(withText(collectorName), isDisplayed()))
+                    .check(matches(withText(collectorName)));
         }
 
     }
@@ -67,8 +67,8 @@ public class TestVynilsE2EHU03 {
         ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeCollectorMenu), isDisplayed()));
         guestBtn.perform(click());
 
-        ViewInteraction performerCatalogBtn = onView(allOf(withId(R.id.btn_see_performer_catalog), isDisplayed()));
-        performerCatalogBtn.perform(click());
+        ViewInteraction collectorCatalogBtn = onView(allOf(withId(R.id.btn_see_collectos), isDisplayed()));
+        collectorCatalogBtn.perform(click());
 
         try {
             Thread.sleep(5000);
@@ -76,11 +76,11 @@ public class TestVynilsE2EHU03 {
             e.printStackTrace();
         }
 
-        String[] expectedPerformers = {"Rubén Blades Bellido de Luna", "Queen"};
+        String[] expectedCollectors = {"Manolo Bellon", "Jaime Monsalve"};
 
-        for (String performerName : expectedPerformers) {
-            onView(allOf(withText(performerName), isDisplayed()))
-                    .check(matches(withText(performerName)));
+        for (String collectorName : expectedCollectors) {
+            onView(allOf(withText(collectorName), isDisplayed()))
+                    .check(matches(withText(collectorName)));
         }
 
     }

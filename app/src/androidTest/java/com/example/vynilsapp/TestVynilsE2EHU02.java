@@ -9,6 +9,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
+import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.IdlingPolicies;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -21,6 +22,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @LargeTest
@@ -41,10 +44,10 @@ public class TestVynilsE2EHU02 {
     public void mainActivityTestAlbumDetailGuest() {
         configureGlobalTimeout();
 
-        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeGuestMenu), withText("Invitado"), isDisplayed()));
+        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeGuestMenu), isDisplayed()));
         guestBtn.perform(click());
 
-        ViewInteraction albumsCatalogBtn = onView(allOf(withId(R.id.btn_see_album_catalog), withText("Ver Catálogo de Álbumes"), isDisplayed()));
+        ViewInteraction albumsCatalogBtn = onView(allOf(withId(R.id.btn_see_album_catalog), isDisplayed()));
         albumsCatalogBtn.perform(click());
 
         try {
@@ -62,8 +65,21 @@ public class TestVynilsE2EHU02 {
             e.printStackTrace();
         }
 
-        String[] expectedLabels = {"Lanzamiento", "Género", "Sello discográfico", "Descripción"};
+        // Obtener textos traducidos desde recursos
+        final List<String> expectedLabels = new ArrayList<>();
+        mActivityTestRule.getScenario().onActivity(activity -> {
+            expectedLabels.add(activity.getString(R.string.album_release));
+            System.out.println(expectedLabels.add(activity.getString(R.string.album_release)));
+            expectedLabels.add(activity.getString(R.string.album_genre));
+            System.out.println(expectedLabels.add(activity.getString(R.string.album_genre)));
+            expectedLabels.add(activity.getString(R.string.album_record_label));
+            System.out.println(expectedLabels.add(activity.getString(R.string.album_record_label)));
+            expectedLabels.add(activity.getString(R.string.album_description));
+            System.out.println(expectedLabels.add(activity.getString(R.string.album_description)));
+        });
 
+
+        // Validar que los labels traducidos están visibles
         for (String label : expectedLabels) {
             onView(allOf(withText(label), isDisplayed()))
                     .check(matches(withText(label)));
@@ -79,10 +95,10 @@ public class TestVynilsE2EHU02 {
     public void mainActivityTestAlbumDetailCollector() {
         configureGlobalTimeout();
 
-        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeCollectorMenu), withText("Coleccionista"), isDisplayed()));
+        ViewInteraction guestBtn = onView(allOf(withId(R.id.btnSeeCollectorMenu), isDisplayed()));
         guestBtn.perform(click());
 
-        ViewInteraction albumsCatalogBtn = onView(allOf(withId(R.id.btn_see_album_catalog), withText("Ver Catálogo de Álbumes"), isDisplayed()));
+        ViewInteraction albumsCatalogBtn = onView(allOf(withId(R.id.btn_see_album_catalog), isDisplayed()));
         albumsCatalogBtn.perform(click());
 
         try {
@@ -100,8 +116,16 @@ public class TestVynilsE2EHU02 {
             e.printStackTrace();
         }
 
-        String[] expectedLabels = {"Lanzamiento", "Género", "Sello discográfico", "Descripción"};
+        // Obtener textos traducidos desde recursos
+        final List<String> expectedLabels = new ArrayList<>();
+        mActivityTestRule.getScenario().onActivity(activity -> {
+            expectedLabels.add(activity.getString(R.string.album_release));
+            expectedLabels.add(activity.getString(R.string.album_genre));
+            expectedLabels.add(activity.getString(R.string.album_record_label));
+            expectedLabels.add(activity.getString(R.string.album_description));
+        });
 
+        // Validar que los labels traducidos están visibles
         for (String label : expectedLabels) {
             onView(allOf(withText(label), isDisplayed()))
                     .check(matches(withText(label)));
