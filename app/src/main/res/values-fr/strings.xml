@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VYNILS</string>
+    <string name="welcome_message">Bienvenue sur Vynils</string>
+    <string name="login_message" translatable="false">Se connecter en tant que</string>
+    <string name="see_album_catalog" translatable="false">Voir le catalogue d\'albums</string>
+    <string name="see_performer_catalog" translatable="false">Voir le catalogue d\'artistes</string>
+    <string name="see_collectors">Voir les collectionneurs</string>
+    <string name="album_catalog_list">Tous les albums</string>
+    <string name="crear_album">CRÉER UN ALBUM</string>
+    <string name="todos_los_albumes">Tous les albums</string>
+    <string name="guest_menu_title">Toute la collection</string>
+    <string name="loading">Chargement</string>
+    <string name="see_guest_menu">Invité</string>
+    <string name="see_collector_menu">Collectionneur</string>
+
+    <!-- Strings pour créer un album -->
+    <string name="create_album_title">Créer un nouvel album</string>
+    <string name="album_name">Nom de l\'album</string>
+    <string name="album_cover">URL de la couverture</string>
+    <string name="album_release_date">Date de sortie (AAAA-MM-JJ)</string>
+    <string name="album_description">Description</string>
+    <string name="album_genre">Genre</string>
+    <string name="album_record_label">Label</string>
+    <string name="save_album">Enregistrer l\'album</string>
+    <string name="album_created_success">Album créé avec succès</string>
+    <string name="error_creating_album">Erreur lors de la création de l\'album</string>
+    <string name="fill_all_fields">Veuillez remplir tous les champs</string>
+
+    <!-- Strings d'artistes -->
+    <string name="todos_los_performers">Tous les artistes</string>
+    <string name="performer_catalog_list">Tous les artistes</string>
+    <string name="performer_name">NOM</string>
+    <string name="performer_description">DESCRIPTION</string>
+    <string name="performer_birth_date">DATE DE NAISSANCE</string>
+    <string name="performer_creation_date">DATE DE CRÉATION</string>
+    <string name="performerCoverDescription">Photo de l\'artiste</string>
+
+    <!-- Strings du détail de l'album -->
+    <string name="album_release">Sortie</string>
+    <string name="albumCoverDescription">Couverture de l\'album</string>
+    <string name="collectors">Tous les collectionneurs</string>
+    <string name="list_collectors">Liste des collectionneurs</string>
+
+    <!-- Strings du détail du collectionneur -->
+    <string name="collector_email">Email :</string>
+    <string name="collector_phone">Téléphone :</string>
+    <string name="collector_detail">Détail du collectionneur</string>
+
+    <!-- Strings pour ajouter une piste -->
+    <string name="agregar_track">Ajouter une piste</string>
+    <string name="add_track_title">Ajouter une piste à l\'album</string>
+    <string name="save_track_album">Ajouter la piste à l\'album</string>
+    <string name="track_name">Nom de la piste</string>
+    <string name="track_duration">Durée</string>
+    <string name="album_selection">Album</string>
+    <string name="track_added_success">Piste ajoutée avec succès !</string>
+    <string name="error_adding_track">Erreur lors de l\'ajout de la piste à l\'album</string>
+    <string name="invalid_selection">Veuillez sélectionner une piste ou un album valide</string>
+</resources>
