@@ -24,15 +24,45 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="236dp"
             android:layout_height="164dp"
-            android:layout_marginStart="84dp"
             android:layout_marginTop="36dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:text="@string/see_album_catalog"
             app:cornerRadius="20dp"
             app:iconPadding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/GuestMenuTitle" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_see_performer_catalog"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="236dp"
+            android:layout_height="164dp"
+            android:layout_marginTop="24dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/see_performer_catalog"
+            app:cornerRadius="20dp"
+            app:iconPadding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_see_album_catalog" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_see_collectos"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="236dp"
+            android:layout_height="164dp"
+            android:layout_marginTop="24dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/see_collectors"
+            app:cornerRadius="20dp"
+            app:iconPadding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_see_performer_catalog" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </layout>

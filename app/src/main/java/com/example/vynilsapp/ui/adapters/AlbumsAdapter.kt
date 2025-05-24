@@ -11,12 +11,32 @@ import com.example.vynilsapp.models.Album
 import com.squareup.picasso.Picasso
 
 class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>(){
+    class AlbumsDiffCallback(
+        private val oldList: List<Album>,
+        private val newList: List<Album>
+    ) : androidx.recyclerview.widget.DiffUtil.Callback() {
 
+        override fun getOldListSize(): Int = oldList.size
+
+        override fun getNewListSize(): Int = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].albumId == newList[newItemPosition].albumId
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition]
+        }
+    }
     var albums :List<Album> = emptyList()
         set(value) {
+            val diffCallback = AlbumsDiffCallback(field, value)
+            val diffResult = androidx.recyclerview.widget.DiffUtil.calculateDiff(diffCallback)
             field = value
-            notifyDataSetChanged()
+            diffResult.dispatchUpdatesTo(this)
         }
+
+    var onClick: ((Album) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val withDataBinding: AlbumItemBinding = DataBindingUtil.inflate(
@@ -36,11 +56,12 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumViewHolder>(){
         if (album.cover.isNotEmpty()) {
             Picasso.get().load(album.cover).into(holder.viewDataBinding.albumCover)
         }
+        holder.itemView.setOnClickListener {
+            onClick?.invoke(album)
+        }
     }
 
-    override fun getItemCount(): Int {
-        return albums.size
-    }
+    override fun getItemCount(): Int = albums.size
 
     class AlbumViewHolder(val viewDataBinding: AlbumItemBinding) :
         RecyclerView.ViewHolder(viewDataBinding.root) {

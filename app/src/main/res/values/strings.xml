@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">VYNILS</string>
     <string name="welcome_message">Bienvenido a Vynils</string>
-    <string name="login_message">Inicia sesión como</string>
-    <string name="see_album_catalog">Ver Catálogo de Álbumes</string>
+    <string name="login_message" translatable="false">Inicia sesión como</string>
+    <string name="see_album_catalog" translatable="false">Ver Catálogo de Álbumes</string>
+    <string name="see_performer_catalog" translatable="false">Ver Catálogo de Artistas</string>
+    <string name="see_collectors">Ver Coleccionistas</string>
     <string name="album_catalog_list">Todos los álbumes</string>
     <string name="crear_album">CREAR ALBUM</string>
     <string name="todos_los_albumes">Todos los álbumes</string>
@@ -23,7 +25,36 @@
     <string name="album_created_success">Álbum creado exitosamente</string>
     <string name="error_creating_album">Error al crear el álbum</string>
     <string name="fill_all_fields">Por favor, complete todos los campos</string>
-    <string name="select_date">Seleccionar fecha</string>
 
+    <!-- Strings de artistas -->
+    <string name="todos_los_performers">Todos los artistas</string>
+    <string name="performer_catalog_list">Todos los artistas</string>
+    <string name="performer_name">NOMBRE</string>
+    <string name="performer_description">DESCRIPCIÓN</string>
+    <string name="performer_birth_date">FECHA NACIMIENTO</string>
+    <string name="performer_creation_date">FECHA CREACIÓN</string>
+    <string name="performerCoverDescription">Foto del artista</string>
+
+    <!-- Strings del detalle del album -->
+    <string name="album_release">Lanzamiento</string>
+    <string name="albumCoverDescription">Carátula del álbum</string>
+    <string name="collectors">Todos los coleccionistas</string>
+    <string name="list_collectors">Lista de coleccionistas</string>
+    
+    <!-- Strings del detalle del coleccionista -->
+    <string name="collector_email">Email:</string>
+    <string name="collector_phone">Teléfono:</string>
+    <string name="collector_detail">Detalle del coleccionista</string>
+
+    <!-- Strings de agregar track -->
+    <string name="agregar_track">Agrega Cancion</string>
+    <string name="add_track_title">Agrega Canción al Album</string>
+    <string name="save_track_album">Agregar canción al álbum</string>
+    <string name="track_name">Nombre canción</string>
+    <string name="track_duration">Duración</string>
+    <string name="album_selection">Álbum</string>
+    <string name="track_added_success">Canción añadida satisfactoriamente!</string>
+    <string name="error_adding_track">Error agregando canción al álbum</string>
+    <string name="invalid_selection">Por favor, seleccione una canción o álbum válido</string>
 
 </resources>
